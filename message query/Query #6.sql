@@ -1,0 +1,1 @@
+SELECT * FROM chat JOIN (SELECT CASE WHEN `from`='" . $email . "' THEN `to` ELSE `from` END AS other, MAX(`datetime`) AS latest FROM `chat` WHERE `from`='" . $email . "' OR `to`='" . $email . "' GROUP BY other) AS `alias` ON (`from`='" . $email . "' AND `to`=other OR `to`='" . $email . "' AND `from`=other) AND `datetime`=`latest` ORDER BY `datetime` DESC

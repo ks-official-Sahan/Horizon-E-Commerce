@@ -1,0 +1,175 @@
+.mainBody {
+    overflow: hidden;
+    /* background-image: url("resources/background.jpg"); */
+    background-color: hsl(194, 15%, 17%);
+    background-color: hsl(190, 59%, 46%);
+    /* background-image: linear-gradient(90deg, hsl(351, 70%, 56%) 0%, hsl(223, 67%, 44%) 50%, hsl(253, 46%, 32%) 100%); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: initial;
+    height: 100vh;
+    width: 100%;
+}
+
+.cover {
+    background-image: url("resources/logo/HS logo PSD green png .png ");
+    background-repeat: no-repeat;
+    background-size: 70%;
+    background-position: center;
+    /* background-color: hsl(274, 84%, 27%); */
+}
+
+.title0 {
+    margin-top: -60px;
+    font-size: 20px;
+    font-family: "Electric";
+}
+
+.logo {
+    background-image: url("resources/logo/HS logo black png.png ");
+    height: 150px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.adminSignInBtn {
+    letter-spacing: 0.7rem;
+    font-family: monospace;
+}.adminSignInBtn:hover {
+    background-image: linear-gradient(240deg, hsl(351, 70%, 56%) 0%, hsl(223, 40%, 53%) 50%, hsl(253, 46%, 32%) 100%);
+}
+
+.height100 {
+    height: 250px;
+    margin-top: -40px;
+}
+
+.home-card {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* width: 16rem; */
+    /* height: 500px; */
+}
+
+.intro {
+    font-family: "Electric";
+}
+
+* {
+    font-family: "Quick";
+    font-size: 14px;
+}
+
+@font-face {
+    font-family: "Quick";
+    src: url("resources/fonts/Quick.ttf");
+}
+@font-face {
+    font-family: "Electric";
+    src: url("resources/fonts/Electric.otf");
+}
+
+.containBox {
+    /* margin-top: -100vh; */
+    opacity: 0;
+    /* background-image: linear-gradient(90deg, hsl(351, 70%, 56%) 0%, hsl(223, 67%, 44%) 50%, hsl(253, 46%, 32%) 100%); */
+}
+
+.carouselHome {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.slider-img{
+    height: 550px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.emptyView {
+    height: 250px;
+    background-image: url("resources/watchListEmptyView.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.emptyCart {
+    height: 250px;
+    background-image: url("resources/emptycart.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.invoiceHeaderImage {
+    height: 90px;
+    background-image: url("resources/logo/HS logo black png.png ");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.chats{
+    background-color: hsl(203, 32%, 10%);
+}
+
+.chatBody:hover,.chatBody:focus {
+    /* opacity: 1; */
+    background-color: hsl(203, 22%, 21%);
+    cursor: pointer;
+    /* color: hsl(183,54%,86%); */
+}
+
+.msgtxt::-webkit-scrollbar {
+    width: 10px;
+}.msgtxt::-webkit-scrollbar-track {
+    border-radius: 0 8px 8px 0;
+    background-color: hsl(203,22%,21%);
+    /* box-shadow: inset 0 0 2px hsl(208, 8%, 45%); */
+}.msgtxt::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: hsl(345, 2%, 41%);
+    /* border: 1px solid hsl(348, 7%, 27%); */
+}.msgtxt::-webkit-scrollbar-thumb:hover{
+    background-color: hsl(190, 59%, 46%);
+}
+
+.openChatBody {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 80vh;
+    min-height: 60vh;
+}.openChatBody::-webkit-scrollbar {
+    width: 10px;
+}.openChatBody::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: hsl(203,22%,21%);
+    /* box-shadow: inset 0 0 2px hsl(200, 12%, 35%); */
+}.openChatBody::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: hsl(345, 2%, 41%);
+    /* border: 1px solid hsl(348, 7%, 27%); */
+}.openChatBody::-webkit-scrollbar-thumb:hover{
+    background-color: hsl(190, 59%, 46%);
+}
+
+.offcanvasadmin::-webkit-scrollbar {
+    width: 10px;
+}.offcanvasadmin::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: hsl(203,22%,21%);
+    /* box-shadow: inset 0 0 2px hsl(200, 12%, 35%); */
+}.offcanvasadmin::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: hsl(345, 2%, 41%);
+    /* border: 1px solid hsl(348, 7%, 27%); */
+}.offcanvasadmin::-webkit-scrollbar-thumb:hover{
+    background-color: hsl(190, 59%, 46%);
+}

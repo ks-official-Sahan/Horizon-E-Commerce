@@ -1,0 +1,1 @@
+SELECT CASE WHEN `from`='ks.official.sahan@gmail.com' THEN `to` ELSE `from` END AS other, MAX(`datetime`) AS latest FROM `chat` WHERE `from`='ks.official.sahan@gmail.com' OR `to`='ks.official.sahan@gmail.com' GROUP BY other;

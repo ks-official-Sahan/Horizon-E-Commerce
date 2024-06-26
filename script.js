@@ -977,6 +977,105 @@ function viewProduct(id) {
   window.location = "singleProductView.php?id=" + id;
 }
 
+/*
+ * payhere
+ */
+
+// function payNow(email) {
+//   // alert("Pay Now");
+//   // alert(email);
+
+//   var request = new XMLHttpRequest();
+
+//   request.onreadystatechange = function () {
+//     // if (request.readyState == 4) {
+//     if ((request.readyState == 4) & (request.status == 200)) {
+//       var response = request.responseText;
+//       //alert (response);
+
+//       var obj = JSON.parse(response);
+
+//       var mail = obj["mail"];
+//       var amount = obj["amount"];
+//       if (response == "1") {
+//         alert("Please Login or Sign Up");
+//         window.location = "index.php";
+//       } else if (response == "2") {
+//         alert("Something went wrong");
+//         window.location.reload();
+//       } else if (response == "3") {
+//         alert(
+//           "Couldn't find the User Address. Please update your adress details"
+//         );
+//         window.location = "userProfile.php";
+//       } else if (response == "4") {
+//         alert("You have been already Paid.");
+//         window.location.reload();
+//       } else {
+//         // Payment completed. It can be a successful failure.
+//         payhere.onCompleted = function onCompleted(orderId) {
+//           payComplete(mail);
+//           console.log("Payment completed.");
+//           // Note: validate the payment and show success or failure page to the customer
+//         };
+
+//         // Payment window closed
+//         payhere.onDismissed = function onDismissed() {
+//           // Note: Prompt user to pay again or show an error page
+//           console.log("Payment dismissed");
+//         };
+
+//         // Error occurred
+//         payhere.onError = function onError(error) {
+//           // Note: show an error page
+//           console.log("Error:" + error);
+//         };
+
+//         // Put the payment variables here
+//         var payment = {
+//           sandbox: true,
+//           merchant_id: "1221502", // Replace your Merchant ID
+//           return_url: "http://localhost/horizon/home.php", // Important
+//           cancel_url: "http://localhost/horizon/home.php", // Important
+//           notify_url: "http://sample.com/notify",
+//           order_id: obj["id"],
+//           items: obj["item"],
+//           amount: amount,
+//           currency: "LKR",
+//           first_name: obj["fname"],
+//           last_name: obj["lanme"],
+//           email: mail,
+//           phone: obj["mobile"],
+//           address: obj["address"],
+//           city: obj["city"],
+//           country: "Sri Lanka",
+//           custom_1: "",
+//           custom_2: "",
+//         };
+
+//         // Show the payhere.js popup, when "PayHere Pay" is clicked
+//         // document.getElementById("payhere-payment").onclick = function (e) {
+//         payhere.startPayment(payment);
+//         // };
+//       }
+//     }
+//   };
+
+//   request.open("GET", "payNowProcess.php?e=" + email, true);
+//   request.send();
+// }
+
+/*
+ * custom payment modal
+ */
+
+var bm;
+function payModelOpen() {
+  var m = document.getElementById("paymentGetwayModel");
+  bm = new bootstrap.Modal(m);
+  bm.show();
+}
+
 function payNow(email) {
   // alert("Pay Now");
   // alert(email);
@@ -1008,51 +1107,8 @@ function payNow(email) {
         alert("You have been already Paid.");
         window.location.reload();
       } else {
-        // Payment completed. It can be a successful failure.
-        payhere.onCompleted = function onCompleted(orderId) {
-          payComplete(mail);
-          console.log("Payment completed.");
-          // Note: validate the payment and show success or failure page to the customer
-        };
-
-        // Payment window closed
-        payhere.onDismissed = function onDismissed() {
-          // Note: Prompt user to pay again or show an error page
-          console.log("Payment dismissed");
-        };
-
-        // Error occurred
-        payhere.onError = function onError(error) {
-          // Note: show an error page
-          console.log("Error:" + error);
-        };
-
-        // Put the payment variables here
-        var payment = {
-          sandbox: true,
-          merchant_id: "1221502", // Replace your Merchant ID
-          return_url: "http://localhost/horizon/home.php", // Important
-          cancel_url: "http://localhost/horizon/home.php", // Important
-          notify_url: "http://sample.com/notify",
-          order_id: obj["id"],
-          items: obj["item"],
-          amount: amount,
-          currency: "LKR",
-          first_name: obj["fname"],
-          last_name: obj["lanme"],
-          email: mail,
-          phone: obj["mobile"],
-          address: obj["address"],
-          city: obj["city"],
-          country: "Sri Lanka",
-          custom_1: "",
-          custom_2: "",
-        };
-
-        // Show the payhere.js popup, when "PayHere Pay" is clicked
-        // document.getElementById("payhere-payment").onclick = function (e) {
-        payhere.startPayment(payment);
-        // };
+        // Payment completed.
+        payComplete(mail);
       }
     }
   };
@@ -1077,6 +1133,7 @@ function payComplete(mail) {
       var response = request.responseText;
       // alert (response);
       if (response == "1") {
+        bm.hide();
         alert("Payment has been completed");
         window.location = "home.php";
       } else {
@@ -1088,6 +1145,10 @@ function payComplete(mail) {
   request.open("POST", "payCompleteProcess.php", true);
   request.send(form);
 }
+
+/*
+* Play
+*/
 
 function playVersion(vid) {
   // alert("Play Version");

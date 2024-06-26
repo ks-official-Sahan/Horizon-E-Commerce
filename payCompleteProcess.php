@@ -24,7 +24,7 @@ if (isset($_SESSION["user"])) {
     $subscription_rs = Database::search("SELECT * FROM `subscription`");
     $subscription_data = $subscription_rs->fetch_assoc();
 
-    Database::iud("INSERT INTO `student_has_subscription` (`user_email`,`subscription_id`,`date`,`validity`) VALUES ('" . $mail . "','" . $subscription_data["id"] . "','" . $date . "', '".$validity."')");
+    Database::iud("INSERT INTO `user_has_subscription` (`user_email`, `subscription_id`, `date`, `validity`) VALUES ('" . $mail . "', '" . $subscription_data["subscription_id"] . "', '" . $date . "', '" . $validity . "')");
 
     echo ("1");
 

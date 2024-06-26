@@ -17,7 +17,8 @@
 
 </head>
 
-<body style="background-color: hsl(165, 40%, 80%); background-image: linear-gradient(90deg, hsl(274, 84%, 27%) 0%, hsl(254, 84%, 37%) 50%, hsl(225, 86%, 32%) 100%);">
+<body
+    style="background-color: hsl(165, 40%, 80%); background-image: linear-gradient(90deg, hsl(274, 84%, 27%) 0%, hsl(254, 84%, 37%) 50%, hsl(225, 86%, 32%) 100%);">
 
     <div class="container-fluid d-flex flex-column">
         <div class="row justify-content-center align-items-center">
@@ -61,16 +62,16 @@
                 }
 
                 if ($condition) {
-            ?>
+                    ?>
                     <script>
-                        window.onload = function() {
+                        window.onload = function () {
                             window.location = "home.php";
                         }
                     </script>
-                <?php
+                    <?php
                 } else {
 
-                ?>
+                    ?>
 
                     <div class="col-12 text-center p-3">
                         <h1 class="text-warning">Subscription</h1>
@@ -89,13 +90,16 @@
                                     ?>
 
                                     <div class="col-12 col-lg-10 text-center text-capitalize border-bottom pb-2 mb-3">
-                                        <span class="fs-1 text-black-50 fw-bold"><?php echo ($data["fname"] . " " . $data["lname"]); ?></span>
+                                        <span
+                                            class="fs-1 text-black-50 fw-bold"><?php echo ($data["fname"] . " " . $data["lname"]); ?></span>
                                     </div>
                                     <div class="col-12 text-center col-lg-6 mt-3 mb-3">
-                                        <span class="fs-4 fw-bold">Subscription: <?php echo ($subscription_data["subscription"]); ?></span>
+                                        <span class="fs-4 fw-bold">Subscription:
+                                            <?php echo ($subscription_data["subscription"]); ?></span>
                                     </div>
                                     <div class="col-12 text-center col-lg-6 mt-3 mb-3">
-                                        <span class="fs-4 fw-bold">Value: Rs. <?php echo ($subscription_data["value"]); ?> .00</span>
+                                        <span class="fs-4 fw-bold">Value: Rs. <?php echo ($subscription_data["value"]); ?>
+                                            .00</span>
                                     </div>
 
                                     <div class="col-12 col-lg-10 text-center border-top fs-5 mt-3 mb-3 p-2">
@@ -109,28 +113,91 @@
 
                     <div class="col-11 col-lg-6 p-3">
                         <div class="row justify-content-center">
-                            <button class="p-3 btn btn-success" onclick="payNow('<?php echo ($data['email']); ?>')">Pay Now</button>
+                            <button class="p-3 btn btn-success" onclick="payModelOpen();">Pay
+                                Now</button>
+                            <!-- <button class="p-3 btn btn-success" onclick="payNow('<?php echo ($data['email']); ?>')">Pay
+                                Now</button> -->
                         </div>
                     </div>
 
-                <?php
+                    <?php
 
                 }
 
             } else {
                 ?>
                 <script>
-                    window.onload = function() {
+                    window.onload = function () {
                         window.location = "home.php";
                     }
                 </script>
-            <?php
+                <?php
             }
 
             ?>
 
         </div>
     </div>
+
+    <!-- Model -->
+    <div class="modal fade" tabindex="-1" id="paymentGetwayModel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row g-3">
+
+                        <div class="row">
+                            <h5 class="text-danger  text-start ms3 mb-2" id="msg"></h5>
+                        </div>
+
+
+                        <div class="col-12">
+                            <lable class="form-lable">Card Holder</lable>
+                            <div class="input-group mb-3">
+                                <input class="form-control text-black-50 text-center" type="text" id="ch" />
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <lable class="form-lable">Card Number</lable>
+                            <div class="input-group mb-3">
+                                <input class="form-control text-black-50 text-center" type="text" id="cn" />
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <lable class="form-lable">Expire Date</lable>
+                            <div class="input-group mb-3">
+                                <input class="form-control text-black-50 text-center" type="text" id="ed" />
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <lable class="form-lable">CVC</lable>
+                            <div class="input-group mb-3">
+                                <input class="form-control text-black-50 text-center" type="text" id="cvc" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning"
+                        onclick="payNow('<?php echo ($data['email']); ?>');">Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Model -->
 
     <script src="script.js"></script>
     <script src="bootstrap.js"></script>

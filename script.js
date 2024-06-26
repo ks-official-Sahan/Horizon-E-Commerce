@@ -984,16 +984,15 @@ function payNow(email) {
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function () {
-   // if (request.readyState == 4) {
-    if (request.readyState == 4 & request.status == 200) {
-
+    // if (request.readyState == 4) {
+    if ((request.readyState == 4) & (request.status == 200)) {
       var response = request.responseText;
-      alert (response);
+      //alert (response);
 
       var obj = JSON.parse(response);
 
       var mail = obj["mail"];
-      var amount = obj["amount"];  
+      var amount = obj["amount"];
       if (response == "1") {
         alert("Please Login or Sign Up");
         window.location = "index.php";
@@ -1001,14 +1000,14 @@ function payNow(email) {
         alert("Something went wrong");
         window.location.reload();
       } else if (response == "3") {
-        alert("Couldn't find the User Address. Please update your adress details");
+        alert(
+          "Couldn't find the User Address. Please update your adress details"
+        );
         window.location = "userProfile.php";
       } else if (response == "4") {
         alert("You have been already Paid.");
         window.location.reload();
       } else {
-
-
         // Payment completed. It can be a successful failure.
         payhere.onCompleted = function onCompleted(orderId) {
           payComplete(mail);
@@ -1032,10 +1031,8 @@ function payNow(email) {
         var payment = {
           sandbox: true,
           merchant_id: "1221502", // Replace your Merchant ID
-          return_url:
-            "http://localhost/horizon/home.php", // Important
-          cancel_url:
-            "http://localhost/horizon/home.php", // Important
+          return_url: "http://localhost/horizon/home.php", // Important
+          cancel_url: "http://localhost/horizon/home.php", // Important
           notify_url: "http://sample.com/notify",
           order_id: obj["id"],
           items: obj["item"],
@@ -1075,13 +1072,12 @@ function payComplete(mail) {
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function () {
-   // if (request.readyState == 4) {
-    if (request.readyState == 4 & request.status == 200) {
-
+    // if (request.readyState == 4) {
+    if ((request.readyState == 4) & (request.status == 200)) {
       var response = request.responseText;
       // alert (response);
       if (response == "1") {
-        alert ("Payment has been completed");
+        alert("Payment has been completed");
         window.location = "home.php";
       } else {
         alert(response);
@@ -1101,7 +1097,7 @@ function playVersion(vid) {
   var player = document.getElementById("player");
   var video = document.getElementById("video");
 
-  var jsObj = { "version_id": vid };
+  var jsObj = { version_id: vid };
   var json = JSON.stringify(jsObj);
 
   var form = new FormData();
@@ -1193,26 +1189,23 @@ function removeFromWatchList(watchlist_id) {
         if (response == "success") {
           window.location.reload();
         } else {
-          alert (response);
+          alert(response);
         }
       } else {
         console.log(response);
       }
     }
-  }
+  };
 
-  request.open("GET","removeFromWatchlist.php?id="+watchlist_id,true);
+  request.open("GET", "removeFromWatchlist.php?id=" + watchlist_id, true);
   request.send();
-
 }
 
 function watchListSearch(x) {
   // alert("Watch List Search");
   // alert(x);
-
   // var empty = document.getElementById("emptyView");
   // var have = document.getElementById("haveProduct");
-
   // empty.classList.toggle("d-none");
   // have.classList.toggle("d-none");
 }
@@ -1234,26 +1227,23 @@ function removeFromRecent(recent_id) {
         if (response == "success") {
           window.location.reload();
         } else {
-          alert (response);
+          alert(response);
         }
       } else {
         console.log(response);
       }
     }
-  }
+  };
 
-  request.open("GET","removeFromRecent.php?id="+recent_id,true);
+  request.open("GET", "removeFromRecent.php?id=" + recent_id, true);
   request.send();
-
 }
 
 function recentSearch(x) {
   // alert("Watch List Search");
   // alert(x);
-
   // var empty = document.getElementById("emptyView");
   // var have = document.getElementById("haveProduct");
-
   // empty.classList.toggle("d-none");
   // have.classList.toggle("d-none");
 }
@@ -1358,7 +1348,7 @@ function searchChat(email) {
   var txt = document.getElementById("txt");
   var btn = document.getElementById("btn");
   // var btn2 = document.getElementById("btn2");
-  
+
   // btn2.onclick = function () {
   //   txt.focus();
   //   if (loadChat_id > 0) {
@@ -1378,8 +1368,8 @@ function searchChat(email) {
     } else if (btn.innerHTML == '<i class="bi bi-search text-success"></i>') {
       txt.focus();
       btn.innerHTML = '<i class="bi bi-arrow-left text-success"></i>';
-    }  
-  };  
+    }
+  };
 
   txt.onblur = function () {
     txt.value = "";
@@ -1452,12 +1442,11 @@ function loadChat(email) {
   }
 
   var msgCount = 0;
-  loadChat_id = setInterval(
-    function () {
-      var request = new XMLHttpRequest();
+  loadChat_id = setInterval(function () {
+    var request = new XMLHttpRequest();
 
-      request.onreadystatechange = function () {
-        if (request.readyState == 4) {
+    request.onreadystatechange = function () {
+      if (request.readyState == 4) {
         var response = request.responseText;
         // alert(response);
         if (request.status == 200) {
@@ -1466,7 +1455,7 @@ function loadChat(email) {
             if (msgCount == 0) {
               msgCount = obj.count;
               chatDiv.innerHTML = obj.content;
-            } else if (msgCount != obj.count){
+            } else if (msgCount != obj.count) {
               msgCount = obj.count;
               chatDiv.innerHTML = obj.content;
             }
@@ -1479,13 +1468,10 @@ function loadChat(email) {
         }
       }
     };
-  
-    request.open("POST", "loadChatProcess.php", true);
-    request.send(form);  
-    },
-    1 * 100
-  );
 
+    request.open("POST", "loadChatProcess.php", true);
+    request.send(form);
+  }, 1 * 100);
 }
 
 function backToChat() {
@@ -1550,46 +1536,42 @@ function loadChatBody(email, chat_id) {
   form.append("c_id", chat_id);
 
   var msgCount = 0;
-  openChat_id = setInterval(
-    function () {
-      var request = new XMLHttpRequest();
+  openChat_id = setInterval(function () {
+    var request = new XMLHttpRequest();
 
-      request.onreadystatechange = function () {
-        // if ((request.readyState == 4) & (request.status == 200)) {
-        if (request.readyState == 4) {
-          var response = request.responseText;
-          // alert(response);
-          if (request.status == 200) {
-            chatContent = "Hei";
-            var obj = JSON.parse(response);
-            if (obj.result == "success") {
-              // alert(msgCount);
-              // alert(obj.content);
-              if (msgCount == 0) {
-                // alert("1");
-                msgCount = obj.count;
-                chatContent.innerHTML = obj.content;
-              } else if (msgCount != obj.count) {
-                // alert("2");
-                msgCount = obj.count;
-                chatContent.innerHTML = obj.content;
-              }
-            } else {
-              alert(obj.result);
+    request.onreadystatechange = function () {
+      // if ((request.readyState == 4) & (request.status == 200)) {
+      if (request.readyState == 4) {
+        var response = request.responseText;
+        // alert(response);
+        if (request.status == 200) {
+          chatContent = "Hei";
+          var obj = JSON.parse(response);
+          if (obj.result == "success") {
+            // alert(msgCount);
+            // alert(obj.content);
+            if (msgCount == 0) {
+              // alert("1");
+              msgCount = obj.count;
+              chatContent.innerHTML = obj.content;
+            } else if (msgCount != obj.count) {
+              // alert("2");
+              msgCount = obj.count;
+              chatContent.innerHTML = obj.content;
             }
           } else {
-            console.log(response);
-            // alert(response);
+            alert(obj.result);
           }
+        } else {
+          console.log(response);
+          // alert(response);
         }
-      };
-    
-      request.open("POST", "LoadChatBodyProcess.php", true);
-      request.send(form);    
-    },
-    1000
-  );
+      }
+    };
 
+    request.open("POST", "LoadChatBodyProcess.php", true);
+    request.send(form);
+  }, 1000);
 }
 
 function viewChat() {

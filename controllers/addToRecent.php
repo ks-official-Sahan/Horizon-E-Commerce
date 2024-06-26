@@ -15,7 +15,7 @@ if (isset($_SESSION["user"])) {
     $pid = $_GET["id"];
     // echo ($mail);
 
-    $recent_rs = Database::search("SELECT * FROM `watchlist` WHERE `product_id`='" . $pid . "' AND `user_email`='" . $mail . "'");
+    $recent_rs = Database::search("SELECT * FROM `recent` WHERE `product_id`='" . $pid . "' AND `user_email`='" . $mail . "'");
     if ($recent_rs->num_rows == 0) {
         Database::iud("INSERT INTO `recent` (`product_id`,`user_email`) VALUES ('" . $pid . "','" . $mail . "')");
         echo ("success");

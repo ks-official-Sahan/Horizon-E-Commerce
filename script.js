@@ -1300,8 +1300,8 @@ function watchListSearch(x) {
 // Recent
 //
 
-function addToWatchList(id) {
-  // alert("Add To Watch List");
+function addToRecent(id) {
+  // alert("Add to Recent");
   // alert(id);
   var request = new XMLHttpRequest();
   request.onreadystatechange = function () {

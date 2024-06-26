@@ -18,7 +18,8 @@
 
 </head>
 
-<body style="background-image: linear-gradient(90deg, hsl(274, 84%, 57%) 0%, hsl(254, 84%, 52%) 50%, hsl(225, 86%, 55%) 100%); overflow-x: hidden;">
+<body
+    style="background-image: linear-gradient(90deg, hsl(274, 84%, 57%) 0%, hsl(254, 84%, 52%) 50%, hsl(225, 86%, 55%) 100%); overflow-x: hidden;">
 
     <div class="col-12">
         <div class="row">
@@ -32,7 +33,7 @@
 
             if (isset($_SESSION["admin"])) {
 
-            ?>
+                ?>
 
                 <!-- Header -->
                 <!-- Navbar -->
@@ -40,17 +41,17 @@
                 <!-- Navbar -->
                 <!-- Header -->
 
-            <?php
+                <?php
 
             } else {
 
-            ?>
+                ?>
 
                 <!-- Header -->
                 <?php include "header.php"; ?>
                 <!-- Header -->
 
-            <?php
+                <?php
 
             }
 
@@ -74,46 +75,57 @@
 
                                     <div id="carouselExampleDark" class="col-12 carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-indicators">
-                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="0" class="active" aria-current="true"
+                                                aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="3" aria-label="Slide 4"></button>
                                         </div>
                                         <div class="carousel-inner">
                                             <div class="carousel-item active" data-bs-interval="3000">
-                                                <img src="resources/slider_img/slide9.jpg" class="d-block slider-img w-100" alt="...">
+                                                <img src="resources/slider_img/slide9.jpg"
+                                                    class="d-block slider-img w-100" alt="...">
                                                 <div class="carousel-caption text-white mb-2 d-none d-md-block">
                                                     <h4 class="fw-bold mb-2">Welcome to Horizon CSR</h4>
                                                     <p>The Best Online Streaming STORE by Horizon CSR</p>
                                                 </div>
                                             </div>
                                             <div class="carousel-item" data-bs-interval="3000">
-                                                <img src="resources/slider_img/slide3.jpg" class="d-block slider-img w-100" alt="...">
+                                                <img src="resources/slider_img/slide3.jpg"
+                                                    class="d-block slider-img w-100" alt="...">
                                                 <div class="carousel-caption text-white mb-2 d-none d-md-block">
                                                     <h4 class="fw-bold mb-2"></h4>
                                                     <p></p>
                                                 </div>
                                             </div>
                                             <div class="carousel-item" data-bs-interval="2000">
-                                                <img src="resources/slider_img/slide0.jpg" class="d-block slider-img w-100" alt="...">
+                                                <img src="resources/slider_img/slide0.jpg"
+                                                    class="d-block slider-img w-100" alt="...">
                                                 <div class="carousel-caption d-none d-md-block">
                                                     <h5 class="fw-bold"></h5>
                                                     <p></p>
                                                 </div>
                                             </div>
                                             <div class="carousel-item" data-bs-interval="2000">
-                                                <img src="resources/slider_img/slide4.jpg" class="d-block slider-img w-100" alt="...">
+                                                <img src="resources/slider_img/slide4.jpg"
+                                                    class="d-block slider-img w-100" alt="...">
                                                 <div class="carousel-caption d-none d-md-block">
                                                     <h5 class="fw-bold"></h5>
                                                     <p></p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleDark" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>
@@ -130,8 +142,8 @@
                             $recent_count = $recent_rs->num_rows;
 
                             if ($recent_count > 0) {
-                            
-                            ?>
+
+                                ?>
 
                                 <!-- Categories & Products -->
                                 <div class="col-12">
@@ -139,8 +151,10 @@
 
                                         <!-- Category -->
                                         <div class="col-12 shadow mb-2 p-2 pt-0 px-5">
-                                            <a href="#" class="fw-bold link-light text-decoration-none fs-1 my-auto" onclick="window.location.reload();">Recents</a> &nbsp;&nbsp;
-                                            <a href="recents.php" class="link-danger text-decoration-none fs-5">See All &rArr;</a>
+                                            <a href="#" class="fw-bold link-light text-decoration-none fs-1 my-auto"
+                                                onclick="window.location.reload();">Recents</a> &nbsp;&nbsp;
+                                            <a href="recents.php" class="link-danger text-decoration-none fs-5">See All
+                                                &rArr;</a>
                                         </div>
                                         <!-- Category -->
 
@@ -172,23 +186,35 @@
                                                             }
 
 
-                                                        ?>
+                                                            ?>
 
                                                             <!-- Card -->
-                                                            <div class="card home-card col-12 rounded-4 bg-dark bg-opacity-75" style="width: 16rem; height: 300px; background-image: url('<?php echo ($code); ?>');">
+                                                            <div class="card home-card col-12 rounded-4 bg-dark bg-opacity-75"
+                                                                style="width: 16rem; height: 300px; background-image: url('<?php echo ($code); ?>');">
                                                                 <!-- <img src="<?php // echo ($code); 
-                                                                                ?>" class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" /> -->
-                                                                <div class="card-body text-center d-flex flex-column justify-content-end shadow">
-                                                                    <h6 class="card-title fw-bold rounded-5 p-1 text-bg-dark bg-opacity-50 text-white shadow"><?php echo ($product_data["title"]); ?></h6>
-                                                                    <div class="d-grid rounded-3 gap-1 text-info text-bg-dark bg-opacity-50">
-                                                                        <a href="#" class="btn bg-primary shadow fw-bolder bg-opacity-50" onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Watch Now</a>
-                                                                        <a href="#" class="btn bg-danger shadow fw-bolder bg-opacity-50" onclick="addToWatchList(0);">Add to Watch List</a>
+                                                                        ?>" class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" /> -->
+                                                                <div
+                                                                    class="card-body text-center d-flex flex-column justify-content-end shadow">
+                                                                    <h6
+                                                                        class="card-title fw-bold rounded-5 p-1 text-bg-dark bg-opacity-50 text-white shadow">
+                                                                        <?php echo ($product_data["title"]); ?>
+                                                                    </h6>
+                                                                    <div
+                                                                        class="d-grid rounded-3 gap-1 text-info text-bg-dark bg-opacity-50">
+                                                                        <a href="#"
+                                                                            class="btn bg-primary shadow fw-bolder bg-opacity-50"
+                                                                            onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Watch
+                                                                            Now</a>
+                                                                        <a href="#"
+                                                                            class="btn bg-danger shadow fw-bolder bg-opacity-50"
+                                                                            onclick="addToWatchList(<?php echo ($product_data['product_id']); ?>);">Add
+                                                                            to Watch List</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <!-- Card -->
 
-                                                        <?php
+                                                            <?php
 
                                                         }
 
@@ -222,19 +248,23 @@
 
                                         $cat_data = $cat_rs->fetch_assoc();
                                         // echo($cat_data["category_id"]);
-
+                                    
                                         $product_rs = Database::search("SELECT * FROM `product` WHERE `category_id`='" . $cat_data["category_id"] . "' AND `status_id`='1' ORDER BY `datetime_added` DESC LIMIT 4 OFFSET 0");
                                         $product_count = $product_rs->num_rows;
 
 
                                         if ($product_count > 0) {
 
-                                    ?>
+                                            ?>
 
                                             <!-- Category -->
                                             <div class="col-12 shadow mb-2 p-2 pt-0 px-5">
-                                                <a href="#" class="fw-bold link-light text-decoration-none fs-1 my-auto" onclick="window.location.reload();"><?php echo ($cat_data["category"]); ?></a> &nbsp;&nbsp;
-                                                <a href="#" class="link-danger text-decoration-none fs-5" onclick="viewCategory(<?php echo ($cat_data['category_id']); ?>);">See All &rArr;</a>
+                                                <a href="#" class="fw-bold link-light text-decoration-none fs-1 my-auto"
+                                                    onclick="window.location.reload();"><?php echo ($cat_data["category"]); ?></a>
+                                                &nbsp;&nbsp;
+                                                <a href="#" class="link-danger text-decoration-none fs-5"
+                                                    onclick="viewCategory(<?php echo ($cat_data['category_id']); ?>);">See All
+                                                    &rArr;</a>
                                             </div>
                                             <!-- Category -->
 
@@ -259,27 +289,39 @@
                                                                     $img_data = $img_rs->fetch_assoc();
                                                                     $code = $img_data["path"];
                                                                 } else {
-                                                                    $code = "resources/item_img/images.jpg";
+                                                                    $code = "resources/item_img/image2.jpg";
                                                                 }
 
 
-                                                            ?>
+                                                                ?>
 
                                                                 <!-- Card -->
-                                                                <div class="card home-card col-12 rounded-4 bg-dark bg-opacity-75" style="width: 16rem; height: 300px; background-image: url('<?php echo ($code); ?>');">
+                                                                <div class="card home-card col-12 rounded-4 bg-dark bg-opacity-75"
+                                                                    style="width: 16rem; height: 300px; background-image: url('<?php echo ($code); ?>');">
                                                                     <!-- <img src="<?php // echo ($code); 
-                                                                                    ?>" class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" /> -->
-                                                                    <div class="card-body text-center d-flex flex-column justify-content-end shadow">
-                                                                        <h6 class="card-title fw-bold rounded-5 p-1 text-bg-dark bg-opacity-50 text-white shadow"><?php echo ($product_data["title"]); ?></h6>
-                                                                        <div class="d-grid rounded-3 gap-1 text-info text-bg-dark bg-opacity-50">
-                                                                            <a href="#" class="btn bg-primary shadow fw-bolder bg-opacity-50" onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Watch Now</a>
-                                                                            <a href="#" class="btn bg-danger shadow fw-bolder bg-opacity-50" onclick="addToWatchList(0);">Add to Watch List</a>
+                                                                                ?>" class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" /> -->
+                                                                    <div
+                                                                        class="card-body text-center d-flex flex-column justify-content-end shadow">
+                                                                        <h6
+                                                                            class="card-title fw-bold rounded-5 p-1 text-bg-dark bg-opacity-50 text-white shadow">
+                                                                            <?php echo ($product_data["title"]); ?>
+                                                                        </h6>
+                                                                        <div
+                                                                            class="d-grid rounded-3 gap-1 text-info text-bg-dark bg-opacity-50">
+                                                                            <a href="#"
+                                                                                class="btn bg-primary shadow fw-bolder bg-opacity-50"
+                                                                                onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Watch
+                                                                                Now</a>
+                                                                            <a href="#"
+                                                                                class="btn bg-danger shadow fw-bolder bg-opacity-50"
+                                                                                onclick="addToWatchList(<?php echo ($product_data['product_id']); ?>);">Add
+                                                                                to Watch List</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Card -->
 
-                                                            <?php
+                                                                <?php
 
                                                             }
 
@@ -292,7 +334,7 @@
                                             </div>
                                             <!-- Products -->
 
-                                    <?php
+                                            <?php
 
                                         }
                                     }
@@ -311,7 +353,8 @@
 
                             <!-- Cards -->
                             <div class="card" style="width: 16rem;">
-                                <img src="resources/item_img/iphone14pro.jpg" onclick="viewProduct(0);" class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" />
+                                <img src="resources/item_img/iphone14pro.jpg" onclick="viewProduct(0);"
+                                    class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" />
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">iPhone 14 Pro</h5>
                                     <span class="card-text fw-bold text-success">Price: USD 899</span><br />
@@ -319,7 +362,8 @@
                                     <div class="d-grid gap-1">
                                         <a href="#" class="btn btn-primary" onclick="plaNow(0);">Play Now</a>
                                         <a href="#" class="btn btn-secondary" onclick="addToCart(0);">Add to Cart</a>
-                                        <a href="#" class="btn btn-danger" onclick="addToWatchList(0);">Add to Watch List</a>
+                                        <a href="#" class="btn btn-danger" onclick="addToWatchList(0);">Add to Watch
+                                            List</a>
                                     </div>
                                 </div>
                             </div>

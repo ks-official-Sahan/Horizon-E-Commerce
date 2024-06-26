@@ -10,22 +10,23 @@
 
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="bootstrap.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" /> <!-- <link rel="stylesheet" href="bootstrap-icons.css" /> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
+    <!-- <link rel="stylesheet" href="bootstrap-icons.css" /> -->
 
     <link rel="icon" href="resources/logo/HS logo black png.png" type="image/svg" />
 </head>
 
 <body class="bg-primary bg-opacity-25">
 
-<?php
+    <?php
 
-require "connection.php";
+    require "connection.php";
 
-session_start();
+    session_start();
 
-?>
+    ?>
 
-<div class="container-fluid vh-100 w-100">
+    <div class="container-fluid vh-100 w-100">
         <div class="row">
 
             <!-- header -->
@@ -69,7 +70,8 @@ session_start();
                                                 <nav aria-label="breadcrumb">
                                                     <div class="breadcrumb">
                                                         <a href="home.php" class="breadcrumb-item fw-bold">Home</a>
-                                                        <a href="#" aria-current="page" class="breadcrumb-item fw-bold active">Recents</a>
+                                                        <a href="#" aria-current="page"
+                                                            class="breadcrumb-item fw-bold active">Recents</a>
                                                     </div>
                                                 </nav>
                                             </div>
@@ -90,76 +92,109 @@ session_start();
                             $recent_count = $recent_rs->num_rows;
 
                             if ($recent_count > 0) {
-                                $recent_data = $recent_rs->fetch_assoc();
-
-                                $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `product`.`year_id`=`year`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` WHERE `product_id`='" . $recent_data["product_id"] . "'");
-                                $product_data = $product_rs->fetch_assoc();
-
-                            ?>
+                                ?>
                                 <!-- have product -->
                                 <div class="col-12 col-lg-9 px-lg-5 p-3" id="haveProduct">
                                     <div class="row justify-content-center p-2">
 
-                                        <div class="card mb-3 mx-0 mx-lg-2 col-12 p-3">
-                                            <div class="row g-0 justify-content-center">
-                                                <div class="col-md-4 col-4">
-                                                        <img src="resources/item_img/iphone14.jpg" onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);" class="img-fluid rounded-start" />
-                                                </div>
-                                                <div class="col-md-5 col-10">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title fs-2 fw-bold text-primary"><?php echo ($product_data["title"]); ?></h5>
-                                                        <span class="fs-4 fw-bold text-black-50">Year : <?php echo ($product_data["year"]); ?></span>
-                                                        &nbsp;&nbsp;<br />
-                                                        <span class="fs-4 fw-bold text-black-50">Category : <?php echo ($product_data["category"]); ?></span><br />
-                                                        <?php
+                                        <?php
+                                        for ($count = 0; $count < $recent_count; $count++) {
 
-                                                        $sub_cat_rs = Database::search("SELECT * FROM `product_has_sub_category` INNER JOIN `sub_category` ON `product_has_sub_category`.`sub_category_id`=`sub_category`.`sub_category_id` WHERE `product_id`='" . $product_data["product_id"] . "'");
-                                                        $sub_cat_count = $sub_cat_rs->num_rows;
+                                            $recent_data = $recent_rs->fetch_assoc();
 
-                                                        if ($sub_cat_count > 0) {
-                                                        ?>
-                                                            <div>
-                                                                <span class="fs-4 fw-bold text-black-50">Genre :</span>&nbsp;&nbsp;
-                                                                <br />
-                                                                <div class="ps-5">
-                                                                    <?php
+                                            $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `product`.`year_id`=`year`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` WHERE `product_id`='" . $recent_data["product_id"] . "'");
+                                            $product_data = $product_rs->fetch_assoc();
 
-                                                                    for ($y = 0; $y < $sub_cat_count; $y++) {
-                                                                        $sub_cat_data = $sub_cat_rs->fetch_assoc();
+                                            $img_rs = Database::search("SELECT * FROM `images` WHERE `product_id` = '" . $product_data["product_id"] . "'");
+                                            $img_count = $img_rs->num_rows;
+
+                                            $code;
+                                            if ($img_count > 0) {
+                                                $img_data = $img_rs->fetch_assoc();
+                                                $code = $img_data["path"];
+                                            } else {
+                                                $code = "resources/item_img/image2.jpg";
+                                            }
+
+                                            ?>
+                                            <div
+                                                class="card mb-3 mx-0 mx-lg-2 col-11 col-lg-10 py-3 px-2 bg-dark bg-opacity-10">
+                                                <div class="row g-0 justify-content-center">
+                                                    <div class="col-md-4 col-3 me-3">
+                                                        <img src="<?php echo ($code); ?>"
+                                                            onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);"
+                                                            class="img-fluid rounded" />
+                                                    </div>
+                                                    <div class="col-md-7 col-9">
+                                                        <div class="row">
+                                                            <div class="card-body col-12 w-100">
+                                                                <h5 class="card-title fs-2 fw-bold text-primary">
+                                                                    <?php echo ($product_data["title"]); ?>
+                                                                </h5>
+                                                                <span class="fs-4 fw-bold text-black-50">Year :
+                                                                    <?php echo ($product_data["year"]); ?></span>
+                                                                &nbsp;&nbsp;<br />
+                                                                <span class="fs-4 fw-bold text-black-50">Category :
+                                                                    <?php echo ($product_data["category"]); ?></span><br />
+                                                                <?php
+
+                                                                $sub_cat_rs = Database::search("SELECT * FROM `product_has_sub_category` INNER JOIN `sub_category` ON `product_has_sub_category`.`sub_category_id`=`sub_category`.`sub_category_id` WHERE `product_id`='" . $product_data["product_id"] . "'");
+                                                                $sub_cat_count = $sub_cat_rs->num_rows;
+
+                                                                if ($sub_cat_count > 0) {
                                                                     ?>
-                                                                        <span class="fs-5 text-black-50"><?php echo ($sub_cat_data["sub_category"]); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                    <?php
-                                                                    }
-                                                                    ?>
+                                                                    <div>
+                                                                        <span class="fs-4 fw-bold text-black-50">Genre
+                                                                            :</span>&nbsp;&nbsp;
+                                                                        <br />
+                                                                        <div class="ps-5">
+                                                                            <?php
+
+                                                                            for ($y = 0; $y < $sub_cat_count; $y++) {
+                                                                                $sub_cat_data = $sub_cat_rs->fetch_assoc();
+                                                                                ?>
+                                                                                <span
+                                                                                    class="fs-5 text-black-50"><?php echo ($sub_cat_data["sub_category"]); ?></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                <?php
+                                                                            }
+                                                                            ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <?php
+                                                                }
+
+                                                                ?>
+                                                            <div class="col-6">
+                                                                <div class="card-body d-grid">
+                                                                    <a href="#" class="btn btn-outline-success mb-2"
+                                                                        onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Play
+                                                                        Now</a>
+                                                                    <a href="#" class="btn btn-outline-danger mb-2"
+                                                                        onclick="removeFromRecent(<?php echo ($recent_data['recent_id']); ?>);">Remove</a>
                                                                 </div>
                                                             </div>
-                                                    </div>
-                                                <?php
-                                                        }
-
-                                                ?>
-                                                </div>
-                                                <div class="col-md-3 col-6">
-                                                    <div class="card-body d-grid">
-                                                        <a href="#" class="btn btn-outline-success mb-2" onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Play Now</a>
-                                                        <a href="#" class="btn btn-outline-danger mb-2" onclick="removeFromRecent(<?php echo ($recent_data['recent_id']); ?>);">Remove</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php
+                                        }
+                                        ?>
 
-                                    </div>
                                 </div>
                                 <!-- have product -->
-                            <?php
+                                <?php
                             } else {
-                            ?>
+                                ?>
                                 <!-- empty view -->
                                 <div class="col-12 col-lg-9" id="emptyView">
                                     <div class="row justify-content-center">
                                         <div class="col-12 emptyView"></div>
                                         <div class="col-12 text-center mb-3">
-                                            <label class="fw-bolder fs-1 text-black-50">You haven't browse anything yet...</label>
+                                            <label class="fw-bolder fs-1 text-black-50">You haven't added anything
+                                                yet...</label>
                                         </div>
                                         <div class="col-12 col-lg-4 d-grid mb-4 p-3 text-center">
                                             <a href="home.php" class="fs-4 btn btn-primary fw-bolder">Browse</a>
@@ -167,7 +202,7 @@ session_start();
                                     </div>
                                 </div>
                                 <!-- empty view -->
-                            <?php
+                                <?php
                             }
 
                             ?>
@@ -184,7 +219,7 @@ session_start();
 
         </div>
     </div>
-          
+
     <script src="script.js"></script>
     <script src="bootstrap.js"></script>
     <script src="bootstrap.bundle.js"></script>

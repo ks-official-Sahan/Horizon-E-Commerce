@@ -260,7 +260,7 @@ if (isset($_GET["id"])) {
                                             <div class="col-12 px-5 p-3">
                                                 <div class="row g-3 px-3">
                                                     <div class="col-12 d-grid">
-                                                        <a href="#versions"
+                                                        <a href="#versions" onclick="addToRecent(<?php echo ($pid); ?>);"
                                                             class="btn rounded shadow rounded-4 btn-primary">Play Now</a>
                                                     </div>
                                                     <div class="col-12 d-grid">

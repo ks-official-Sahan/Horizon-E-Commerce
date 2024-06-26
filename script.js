@@ -1242,7 +1242,7 @@ function addToWatchList(id) {
       if (request.status == 200) {
         if (response == "success") {
           window.location.reload();
-          alert("Added to Watchlist.")
+          alert("Added to Watchlist.");
         } else if (response == "Please Sign in or Register") {
           alert(response);
           window.location = "index.php";
@@ -1279,7 +1279,11 @@ function removeFromWatchList(watchlist_id) {
     }
   };
 
-  request.open("GET", "removeFromWatchlist.php?id=" + watchlist_id, true);
+  request.open(
+    "GET",
+    "controllers/removeFromWatchlist.php?id=" + watchlist_id,
+    true
+  );
   request.send();
 }
 
@@ -1295,6 +1299,22 @@ function watchListSearch(x) {
 //
 // Recent
 //
+
+function addToWatchList(id) {
+  // alert("Add To Watch List");
+  // alert(id);
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4) {
+      var response = request.responseText;
+      if (request.status != 200) {
+        console.log(response);
+      }
+    }
+  };
+  request.open("GET", "controllers/addToRecent.php?id=" + id);
+  request.send();
+}
 
 function removeFromRecent(recent_id) {
   // alert("Remove From Watch List");

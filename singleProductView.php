@@ -24,11 +24,12 @@ require "connection.php";
 
 if (isset($_GET["id"])) {
 
-?>
+    ?>
 
     <!-- <body class="bg-dark bg-opacity-75"> -->
+
     <body class="bg-primary bg-opacity-25">
-    <!-- <body class="bg-body"> -->
+        <!-- <body class="bg-body"> -->
 
         <div class="container-fluid vh-100 w-100">
             <div class="row justify-content-center align-items-center">
@@ -40,47 +41,47 @@ if (isset($_GET["id"])) {
                     $type;
                     if (isset($_SESSION["user"])) {
                         $user = $_SESSION["user"];
-                    $type = "user";
-                        
-                    $today = date("Y-m-d");
-    
-                    $uhs_rs = Database::search("SELECT * FROM `user_has_subscription` WHERE `user_email`='" . $user["email"] . "'");
-                    $uhs_count = $uhs_rs->num_rows;
-    
-                    if ($uhs_count == 1) {
-    
-                        $uhs_data = $uhs_rs->fetch_assoc();
-                        $end_date = $uhs_data["validity"];
-    
-                        if (strtotime($today) > strtotime($end_date)) {
-    
-                ?>
+                        $type = "user";
+
+                        $today = date("Y-m-d");
+
+                        $uhs_rs = Database::search("SELECT * FROM `user_has_subscription` WHERE `user_email`='" . $user["email"] . "'");
+                        $uhs_count = $uhs_rs->num_rows;
+
+                        if ($uhs_count == 1) {
+
+                            $uhs_data = $uhs_rs->fetch_assoc();
+                            $end_date = $uhs_data["validity"];
+
+                            if (strtotime($today) > strtotime($end_date)) {
+
+                                ?>
+                                <script>
+                                    window.onload = function () {
+                                        alert("Your subscription has been expired.");
+                                        window.location = "subscription.php";
+                                    };
+                                </script>
+                                <?php
+
+                            }
+                        } else {
+                            ?>
                             <script>
-                                window.onload = function() {
-                                    alert("Your subscription has been expired.");
+                                window.onload = function () {
+                                    alert("You don't have have a subscription to continue.. ");
                                     window.location = "subscription.php";
                                 };
                             </script>
-                <?php
-    
+                            <?php
                         }
-                    } else {
-                        ?>
-                        <script>
-                            window.onload = function() {
-                                alert("You don't have have a subscription to continue.. ");
-                                window.location = "subscription.php";
-                            };
-                        </script>
-            <?php                    
+
+                    } else if (isset($_SESSION["admin"])) {
+                        $user = $_SESSION["admin"];
+                        $type = "admin";
                     }
 
-                } else if (isset($_SESSION["admin"])) {
-                        $user = $_SESSION["admin"];
-                    $type = "admin";
-                }
-
-                ?>
+                    ?>
 
                     <!-- header -->
                     <?php include "header.php"; ?>
@@ -129,7 +130,9 @@ if (isset($_GET["id"])) {
 
                                             <div class="col-2">
 
-                                                <img src="<?php echo ($code); ?>" class="d-block slider-img w-100 h-25 mx-auto" type="button" data-bs-target="#carouselExampleDark" class="active"  data-bs-slide-to="0" aria-current="true" aria-label="Slide 1" />
+                                                <img src="<?php echo ($code); ?>" class="d-block slider-img w-100 h-25 mx-auto"
+                                                    type="button" data-bs-target="#carouselExampleDark" class="active"
+                                                    data-bs-slide-to="0" aria-current="true" aria-label="Slide 1" />
 
                                                 <?php
 
@@ -137,9 +140,12 @@ if (isset($_GET["id"])) {
 
                                                     $image_data = $image_rs->fetch_assoc();
 
-                                                ?>
-                                                    <img src="<?php echo ($image_data["path"]); ?>" class="d-block slider-img w-100 h-25 mx-auto" type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="<?php echo ($x); ?>" aria-label="Slide <?php echo ($x + 1); ?>" />
-                                                <?php
+                                                    ?>
+                                                    <img src="<?php echo ($image_data["path"]); ?>"
+                                                        class="d-block slider-img w-100 h-25 mx-auto" type="button"
+                                                        data-bs-target="#carouselExampleDark" data-bs-slide-to="<?php echo ($x); ?>"
+                                                        aria-label="Slide <?php echo ($x + 1); ?>" />
+                                                    <?php
 
                                                 }
 
@@ -147,18 +153,24 @@ if (isset($_GET["id"])) {
 
                                             </div>
 
-                                            <div id="carouselExampleDark" class="col-10 carousel carousel-dark slide table-responsive" data-bs-ride="carousel">
+                                            <div id="carouselExampleDark"
+                                                class="col-10 carousel carousel-dark slide table-responsive"
+                                                data-bs-ride="carousel">
                                                 <div class="carousel-indicators">
 
-                                                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                                    <button type="button" data-bs-target="#carouselExampleDark"
+                                                        data-bs-slide-to="0" class="active" aria-current="true"
+                                                        aria-label="Slide 1"></button>
 
                                                     <?php
 
                                                     for ($x = 1; $x < $image_count; $x++) {
 
-                                                    ?>
-                                                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="<?php echo ($x); ?>" aria-label="Slide <?php echo ($x + 1); ?>"></button>
-                                                    <?php
+                                                        ?>
+                                                        <button type="button" data-bs-target="#carouselExampleDark"
+                                                            data-bs-slide-to="<?php echo ($x); ?>"
+                                                            aria-label="Slide <?php echo ($x + 1); ?>"></button>
+                                                        <?php
 
                                                     }
 
@@ -167,7 +179,8 @@ if (isset($_GET["id"])) {
                                                 </div>
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item active" data-bs-interval="5000">
-                                                        <img src="<?php echo ($code); ?>" class="d-block slider-img w-75 mx-auto" alt="..." />
+                                                        <img src="<?php echo ($code); ?>"
+                                                            class="d-block slider-img w-75 mx-auto" alt="..." />
                                                     </div>
                                                     <?php
 
@@ -175,25 +188,28 @@ if (isset($_GET["id"])) {
 
                                                         $image_data = $image_rs->fetch_assoc();
 
-                                                    ?>
+                                                        ?>
                                                         <div class="carousel-item" data-bs-interval="3000">
-                                                            <img src="<?php echo ($image_data["path"]); ?>" class="d-block slider-img w-75 mx-auto" alt="..." />
+                                                            <img src="<?php echo ($image_data["path"]); ?>"
+                                                                class="d-block slider-img w-75 mx-auto" alt="..." />
                                                         </div>
-                                                    <?php
+                                                        <?php
 
                                                     }
 
                                                     ?>
                                                 </div>
                                                 <?php if ($image_count > 1) { ?>
-                                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Next</span>
-                                                </button>
+                                                    <button class="carousel-control-prev" type="button"
+                                                        data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button"
+                                                        data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </button>
                                                 <?php } ?>
                                             </div>
 
@@ -215,8 +231,11 @@ if (isset($_GET["id"])) {
                                                 <div class="row border-bottom">
                                                     <nav aria-label="breadcrumb">
                                                         <ol class="breadcrumb">
-                                                            <li class="breadcrumb-item"><a href="home.php" class="text-decoration-none">Home</a></li>
-                                                            <li class="breadcrumb-item active" aria-current="page"><?php echo ($category_data["category"]); ?></li>
+                                                            <li class="breadcrumb-item"><a href="home.php"
+                                                                    class="text-decoration-none">Home</a></li>
+                                                            <li class="breadcrumb-item active" aria-current="page">
+                                                                <?php echo ($category_data["category"]); ?>
+                                                            </li>
                                                         </ol>
                                                     </nav>
                                                 </div>
@@ -228,8 +247,10 @@ if (isset($_GET["id"])) {
                                         <div class="row">
 
                                             <div class="col-12 mt-3 px-4 p-2">
-                                                <span class="fw-bold fs-3 pt-1 text-success"><?php echo ($product_data["title"]); ?></span>
-                                                <span class="fw-bold fs-4 pt-1 text-secondary">&nbsp; | &nbsp;<?php echo ($product_data["year"]); ?></span>
+                                                <span
+                                                    class="fw-bold fs-3 pt-1 text-success"><?php echo ($product_data["title"]); ?></span>
+                                                <span class="fw-bold fs-4 pt-1 text-secondary">&nbsp; |
+                                                    &nbsp;<?php echo ($product_data["year"]); ?></span>
                                             </div>
 
                                             <div class="col-12 px-2 opacity-50">
@@ -239,10 +260,13 @@ if (isset($_GET["id"])) {
                                             <div class="col-12 px-5 p-3">
                                                 <div class="row g-3 px-3">
                                                     <div class="col-12 d-grid">
-                                                        <a href="#versions" class="btn rounded shadow rounded-4 btn-primary">Play Now</a>
+                                                        <a href="#versions"
+                                                            class="btn rounded shadow rounded-4 btn-primary">Play Now</a>
                                                     </div>
                                                     <div class="col-12 d-grid">
-                                                        <button class="btn rounded shadow rounded-4 btn-outline-danger" onclick="addToWatchList(0);">Add to Watch List</button>
+                                                        <button class="btn rounded shadow rounded-4 btn-outline-danger"
+                                                            onclick="addToWatchList(<?php echo ($pid); ?>);">Add to Watch
+                                                            List</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -393,16 +417,18 @@ if (isset($_GET["id"])) {
 
                                                                 $version_data = $version_rs->fetch_assoc();
 
-                                                        ?>
+                                                                ?>
                                                                 <tr>
                                                                     <td><?php echo ($version_data["version"]); ?></td>
                                                                     <td><?php echo ($version_data["quality"]); ?></td>
-                                                                    <td><?php echo ($version_data["size"] . $version_data["size_type"]); ?></td>
+                                                                    <td><?php echo ($version_data["size"] . $version_data["size_type"]); ?>
+                                                                    </td>
                                                                     <td>
-                                                                        <button class="btn btn-outline-danger" onclick="playVersion(<?php echo ($version_data['version_id']); ?>)">Play</button>
+                                                                        <button class="btn btn-outline-danger"
+                                                                            onclick="playVersion(<?php echo ($version_data['version_id']); ?>)">Play</button>
                                                                     </td>
                                                                 </tr>
-                                                            <?php
+                                                                <?php
 
                                                             }
                                                         } else {
@@ -410,7 +436,7 @@ if (isset($_GET["id"])) {
                                                             <tr>
                                                                 <td colspan="4">Something went wrong</td>
                                                             </tr>
-                                                        <?php
+                                                            <?php
                                                         }
 
                                                         ?>
@@ -461,12 +487,12 @@ if (isset($_GET["id"])) {
 
                                             <?php
 
-                                            $similar_rs = Database::search("SELECT * FROM `product` WHERE `category_id`='" . $product_data["category_id"] . "' AND `status_id`='1' AND `product_id`!='".$pid."' ORDER BY `datetime_added` DESC LIMIT 4 OFFSET 0");
+                                            $similar_rs = Database::search("SELECT * FROM `product` WHERE `category_id`='" . $product_data["category_id"] . "' AND `status_id`='1' AND `product_id`!='" . $pid . "' ORDER BY `datetime_added` DESC LIMIT 4 OFFSET 0");
                                             $similar_count = $similar_rs->num_rows;
 
                                             if ($similar_count < 2) {
 
-                                                $similar_rs = Database::search("SELECT * FROM `product` WHERE `status_id`='1' AND `product_id`!='".$pid."' ORDER BY `datetime_added` DESC LIMIT 4 OFFSET 0");
+                                                $similar_rs = Database::search("SELECT * FROM `product` WHERE `status_id`='1' AND `product_id`!='" . $pid . "' ORDER BY `datetime_added` DESC LIMIT 4 OFFSET 0");
                                                 $similar_count = $similar_rs->num_rows;
                                             }
 
@@ -485,21 +511,29 @@ if (isset($_GET["id"])) {
                                                     $imgCode = "resources/item_img/images.jpg";
                                                 }
 
-                                            ?>
+                                                ?>
 
                                                 <!-- Card -->
-                                                <div class="col-12 card rounded-4 col-sm-6 col-lg-3 bg-opacity-75 home-card" style="width: 16rem; height: 300px; background-image: url('<?php echo ($imgCode); ?>');">
-                                                        <div class="card-body text-center d-flex flex-column justify-content-end shadow">
-                                                            <h6 class="card-title rounded-5 text-bg-dark bg-opacity-50 p-1 fw-bold text-white shadow"><?php echo ($similar_data["title"]); ?></h6>
-                                                            <div class="d-grid gap-1 rounded-3 text-bg-dark text-info">
-                                                                <a href="#" class="btn bg-primary shadow fw-bolder bg-opacity-50" onclick="viewProduct(<?php echo ($similar_data['product_id']); ?>);">Watch Now</a>
-                                                                <a href="#" class="btn bg-danger shadow fw-bolder bg-opacity-50" onclick="addToWatchList(0);">Add to Watch List</a>
-                                                            </div>
+                                                <div class="col-12 card rounded-4 col-sm-6 col-lg-3 bg-opacity-75 home-card"
+                                                    style="width: 16rem; height: 300px; background-image: url('<?php echo ($imgCode); ?>');">
+                                                    <div
+                                                        class="card-body text-center d-flex flex-column justify-content-end shadow">
+                                                        <h6
+                                                            class="card-title rounded-5 text-bg-dark bg-opacity-50 p-1 fw-bold text-white shadow">
+                                                            <?php echo ($similar_data["title"]); ?>
+                                                        </h6>
+                                                        <div class="d-grid gap-1 rounded-3 text-bg-dark text-info">
+                                                            <a href="#" class="btn bg-primary shadow fw-bolder bg-opacity-50"
+                                                                onclick="viewProduct(<?php echo ($similar_data['product_id']); ?>);">Watch
+                                                                Now</a>
+                                                            <a href="#" class="btn bg-danger shadow fw-bolder bg-opacity-50"
+                                                                onclick="addToWatchList(0);">Add to Watch List</a>
                                                         </div>
+                                                    </div>
                                                 </div>
                                                 <!-- Card -->
 
-                                            <?php
+                                                <?php
 
 
                                             }
@@ -521,14 +555,14 @@ if (isset($_GET["id"])) {
                     <?php include "footer.php"; ?>
                     <!-- footer -->
 
-                <?php
+                    <?php
 
                 } else {
-                ?>
+                    ?>
                     <div class="col-12 fw-bold py-5 p-4 text-center">
                         <span class="text-warning fs-2">Something went wrong. Please sign in again.</span>
                     </div>
-                <?php
+                    <?php
                 }
 
                 ?>
@@ -541,19 +575,19 @@ if (isset($_GET["id"])) {
         <!-- <script src="bootstrap.bundle.js"></script> -->
     </body>
 
-<?php
+    <?php
 
 } else {
     // header("Location:home.php");
 
-?>
+    ?>
 
     <body>
         <div class="col-12 text-center fs-2">
             <?php echo ("Something went wrong !!"); ?>
         </div>
     </body>
-<?php
+    <?php
 
 }
 

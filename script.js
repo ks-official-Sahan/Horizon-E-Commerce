@@ -1147,8 +1147,8 @@ function payComplete(mail) {
 }
 
 /*
-* Play
-*/
+ * Play
+ */
 
 function playVersion(vid) {
   // alert("Play Version");
@@ -1233,8 +1233,29 @@ function payOut() {
 //
 
 function addToWatchList(id) {
-  alert("Add To Watch List");
-  alert(id);
+  // alert("Add To Watch List");
+  // alert(id);
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (request.readyState == 4) {
+      var response = request.responseText;
+      if (request.status == 200) {
+        if (response == "success") {
+          window.location.reload();
+          alert("Added to Watchlist.")
+        } else if (response == "Please Sign in or Register") {
+          alert(response);
+          window.location = "index.php";
+        } else {
+          alert(response);
+        }
+      } else {
+        console.log(response);
+      }
+    }
+  };
+  request.open("GET", "controllers/addToWatchList.php?id=" + id);
+  request.send();
 }
 
 function removeFromWatchList(watchlist_id) {
@@ -1510,6 +1531,7 @@ function loadChat(email) {
       if (request.readyState == 4) {
         var response = request.responseText;
         // alert(response);
+        // console.log(response);
         if (request.status == 200) {
           var obj = JSON.parse(response);
           if (obj.result == "success") {
@@ -1590,7 +1612,8 @@ function loadChatBody(email, chat_id) {
   // alert(email);
   // alert(chat_id);
 
-  var chatContent = document.getElementById("chatContents").innerHTML;
+  var chatContent = document.getElementById("chatContents");
+  //var chatContent = document.getElementById("chatContents").innerHTML;
 
   var form = new FormData();
   form.append("email", email);
@@ -1606,7 +1629,8 @@ function loadChatBody(email, chat_id) {
         var response = request.responseText;
         // alert(response);
         if (request.status == 200) {
-          chatContent = "Hei";
+          //chatContent.innerHTML = "Hei";
+          document.getElementById("chatContents").innerHTML = "Hei";
           var obj = JSON.parse(response);
           if (obj.result == "success") {
             // alert(msgCount);
@@ -1614,11 +1638,13 @@ function loadChatBody(email, chat_id) {
             if (msgCount == 0) {
               // alert("1");
               msgCount = obj.count;
-              chatContent.innerHTML = obj.content;
+              // chatContent.innerHTML = obj.content;
+              document.getElementById("chatContents").innerHTML = obj.content;
             } else if (msgCount != obj.count) {
               // alert("2");
               msgCount = obj.count;
-              chatContent.innerHTML = obj.content;
+              // chatContent.innerHTML = obj.content;
+              document.getElementById("chatContents").innerHTML = obj.content;
             }
           } else {
             alert(obj.result);

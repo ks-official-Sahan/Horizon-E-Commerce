@@ -13,24 +13,29 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 } else {
 
     if (isset($_POST["email"])) {
-        
+
         $email = $_POST["email"];
-        
-        if ($_SESSION["user"]["email"] == $email || $_SESSION["admin"]["email"] == $email) {
-        
+        // echo ($_SESSION["user"]["email"]);
+
+        $user_type = "user";
+        if (isset($_SESSION["admin"])) {
+            $user_type = "admin";
+        }
+        if ($_SESSION[$user_type]["email"] == $email) {
+
             ob_start();
 
             Database::iud("UPDATE `content` SET `status`='2' WHERE `to`='" . $email . "' AND `status`='1'");
 
-            $chat_rs = Database::search("SELECT * FROM content INNER JOIN (SELECT chat_id AS c_id, `datetime` AS latest, user1, user2 FROM chat WHERE `user1`='".$email."' OR `user2`='".$email."') AS result ON chat_id=c_id WHERE `datetime`=latest ORDER BY `datetime` DESC");
+            $chat_rs = Database::search("SELECT * FROM content INNER JOIN (SELECT chat_id AS c_id, `datetime` AS latest, user1, user2 FROM chat WHERE `user1`='" . $email . "' OR `user2`='" . $email . "') AS result ON chat_id=c_id WHERE `datetime`=latest ORDER BY `datetime` DESC");
             $chat_count = $chat_rs->num_rows;
 
-            $count_rs = Database::search("SELECT * FROM content INNER JOIN (SELECT chat_id AS c_id, `datetime` AS latest, user1, user2 FROM chat WHERE `user1`='".$email."' OR `user2`='".$email."') AS result ON chat_id=c_id");
+            $count_rs = Database::search("SELECT * FROM content INNER JOIN (SELECT chat_id AS c_id, `datetime` AS latest, user1, user2 FROM chat WHERE `user1`='" . $email . "' OR `user2`='" . $email . "') AS result ON chat_id=c_id");
             $obj->count = $count_rs->num_rows;
 
             if ($chat_count > 0) {
 
-?>
+                ?>
 
                 <!-- Chats -->
                 <div class="col-12 w-100 overflow-auto">
@@ -61,18 +66,18 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                             $tz = new DateTimeZone("Asia/Colombo");
                             $d->setTimezone($tz);
                             $dateTime = $d->format("Y-m-d H:i:s"); // Current Date Time
-
+        
                             // Getting The Date of Today
                             $today = $d->format("Y-m-d"); // Current Date 
-
+        
                             // Getting The Time of Relevant Message
                             $msgTime = $chat_data["time"]; // Msg Time H:i:s
                             $timeArray = explode(":", $msgTime);
                             $msgTime = $timeArray[0] . ":" . $timeArray[1]; // Msg Time H.i
-
+        
                             // Getting The Date of Relevant Message
                             $msgDate = $chat_data["date"]; // Msg Date Y-m-d
-
+        
                             // Getting The Date of Yesterday
                             $yd = new DateTime('yesterday', $tz);
                             $yesterday = $yd->format("Y-m-d");
@@ -102,13 +107,15 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                                 $user_profile_path = "resources/avatar.svg";
                             }
 
-                        ?>
+                            ?>
 
-                            <div class="col-12 pe-2" onclick="openChat('<?php echo ($user); ?>', <?php echo ($chat_data['chat_id']); ?>);" style="max-height: 100px; min-height: 77px;">
+                            <div class="col-12 pe-2" onclick="openChat('<?php echo ($user); ?>', <?php echo ($chat_data['chat_id']); ?>);"
+                                style="max-height: 100px; min-height: 77px;">
                                 <div class="row chatBody g-0">
                                     <!-- Img -->
                                     <div class="col-2 pt-2 pb-2 ps-0 pe-3">
-                                        <img src="<?php echo ($user_profile_path); ?>" style="max-height: 55px; width: 80%;" class="img-fluid rounded-circle ms-2 my-2 me-2">
+                                        <img src="<?php echo ($user_profile_path); ?>" style="max-height: 55px; width: 80%;"
+                                            class="img-fluid rounded-circle ms-2 my-2 me-2">
                                     </div>
                                     <!-- Img -->
                                     <!-- Content -->
@@ -130,33 +137,34 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 
                                                             if ($email == $chat_data["from"]) {
 
-                                                            ?>
+                                                                ?>
                                                                 <div class="col-2 col-lg-1 ps-1">
                                                                     <?php
 
                                                                     if ($chat_data["status"] == 1) {
 
-                                                                    ?>
+                                                                        ?>
                                                                         <span><i class="bi bi-check2"></i></span>
-                                                                    <?php
+                                                                        <?php
 
                                                                     } else if ($chat_data["status"] == 2) {
 
-                                                                    ?>
-                                                                        <span class="text-white"><i class="bi fs-6 bi-check2-all"></i></span>&nbsp;
-                                                                    <?php
+                                                                        ?>
+                                                                            <span class="text-white"><i class="bi fs-6 bi-check2-all"></i></span>&nbsp;
+                                                                        <?php
 
                                                                     } else if ($chat_data["status"] == 3) {
 
-                                                                    ?>
-                                                                        <span class="text-primary"><i class="bi fs-6 bi-check2-all" style="color: hsl(227, 61%, 41%);"></i></span>&nbsp;
-                                                                    <?php
+                                                                        ?>
+                                                                                <span class="text-primary"><i class="bi fs-6 bi-check2-all"
+                                                                                        style="color: hsl(227, 61%, 41%);"></i></span>&nbsp;
+                                                                        <?php
 
                                                                     }
 
                                                                     ?>
                                                                 </div>
-                                                            <?php
+                                                                <?php
 
                                                             }
 
@@ -168,21 +176,23 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 
                                                                 if ($chat_data["content"] != null) {
 
-                                                                ?>
+                                                                    ?>
                                                                     <span class="fs-6"><?php echo ($chat_data["content"]); ?></span>
-                                                                <?php
+                                                                    <?php
 
                                                                 } else if ($chat_data["attachment_id"] != 0) {
 
-                                                                    $attach_rs = Database::search("SELECT * FROM `attachment` WHERE `attachment_id`='".$chat_data["attachment_id"]."'");
-                                                                    $attach_data = $attach_rs->fetch_assoc();                                    
+                                                                    $attach_rs = Database::search("SELECT * FROM `attachment` WHERE `attachment_id`='" . $chat_data["attachment_id"] . "'");
+                                                                    $attach_data = $attach_rs->fetch_assoc();
 
-                                                                ?>
-                                                                    <div style="width: 50%; height: 25px;">
-                                                                        <img src="<?php echo ($attach_data["attachment"]); ?>" class="img-fluid" style="max-height: 25px; min-height: 20px;" height="20px" />&nbsp;&nbsp;
-                                                                        <span class="fs-6">Image File</span>
-                                                                    </div>
-                                                                <?php
+                                                                    ?>
+                                                                        <div style="width: 50%; height: 25px;">
+                                                                            <img src="<?php echo ($attach_data["attachment"]); ?>" class="img-fluid"
+                                                                                style="max-height: 25px; min-height: 20px;"
+                                                                                height="20px" />&nbsp;&nbsp;
+                                                                            <span class="fs-6">Image File</span>
+                                                                        </div>
+                                                                    <?php
 
                                                                 }
 
@@ -202,7 +212,8 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                                                     <div class="offset-3 col-9 text-start">
                                                         <div class="row g-0 ">
                                                             <div class="col-12 text-end">
-                                                                <span class="text-white-50" style="font-size: 12px;"><?php echo ($dayOrTime); ?></span>
+                                                                <span class="text-white-50"
+                                                                    style="font-size: 12px;"><?php echo ($dayOrTime); ?></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,13 +229,14 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
 
                                                         if ($msg_count > 0) {
 
-                                                    ?>
+                                                            ?>
                                                             <!-- Msg Count -->
                                                             <div class="col-4 offset-7 mt-2 rounded-circle">
-                                                                <span class="badge bg-success rounded rounded-5 rounded-circle text-white-50 fs-6"><?php echo ($msg_count); ?></span>
+                                                                <span
+                                                                    class="badge bg-success rounded rounded-5 rounded-circle text-white-50 fs-6"><?php echo ($msg_count); ?></span>
                                                             </div>
                                                             <!-- Msg Count -->
-                                                    <?php
+                                                            <?php
 
                                                         }
                                                     }
@@ -240,7 +252,7 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                             </div>
                             <!-- Chat -->
 
-                        <?php
+                            <?php
 
                         }
 
@@ -250,12 +262,13 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                 </div>
                 <!-- Chats -->
 
-            <?php
+                <?php
 
             } else {
 
                 $profile_rs = Database::search("SELECT * FROM `profile_image` WHERE `user_email`='" . $email . "'");
-                $profile_count = $profile_rs->num_rows;;
+                $profile_count = $profile_rs->num_rows;
+                ;
 
                 $path;
                 if ($profile_count > 0) {
@@ -268,7 +281,7 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                     $path = "resources/avatar.svg";
                 }
 
-            ?>
+                ?>
 
                 <!-- Empty Chats -->
                 <div class="col-12 pb-0 float-start overflow-hidden" style="max-height: 70vh; height: max-content; min-height: 60vh;">
@@ -278,26 +291,28 @@ if (!isset($_SESSION["user"]) && !isset($_SESSION["admin"])) {
                             <img src="<?php echo ($path); ?>" class="img-fluid w-100" />
                         </div>
                         <div class="col-9 mt-2 mb-3 text-center text-white">
-                            <span class="fs-5 mt-2 mb-3">You haven't stated a conversation with anyone yet. Use Chat Search or use the following button to start a new Conversation.</span><br />
-                            <button class="btn shadow btn-outline-success mt-4" id="btn2" onclick="searchChat();">Click here to start new Conversation</button>
+                            <span class="fs-5 mt-2 mb-3">You haven't stated a conversation with anyone yet. Use Chat Search or use the
+                                following button to start a new Conversation.</span><br />
+                            <button class="btn shadow btn-outline-success mt-4" id="btn2" onclick="searchChat();">Click here to start
+                                new Conversation</button>
                         </div>
 
                     </div>
                 </div>
                 <!-- Empty Chats -->
 
-<?php
+                <?php
 
             }
 
             $obj->content = ob_get_clean();
-            
+
             $obj->result = "success";
 
         } else {
             $obj->result = "Please Sign In";
         }
-        
+
     } else {
         $obj->result = "Something went wrong. Couldn't Find the User's Email";
     }

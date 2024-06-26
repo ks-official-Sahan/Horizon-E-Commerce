@@ -21,15 +21,22 @@ if (isset($_POST["rmail"])) {
 
                 $smail = $_POST["smail"];
 
+                $d = new DateTime();
+                $tz = new DateTimeZone("Asia/Colombo");
+                $d->setTimezone($tz);
+                $tcdate = $d->format("Y-m-d H:i:s"); // Current Date Time
+
                 $chat_id_rs = Database::search("SELECT chat_id FROM `chat` WHERE (`user1`='" . $smail . "' AND `user2`='" . $rmail . "') OR (`user2`='" . $smail . "' AND `user1`='" . $rmail . "')");
-                $chat_id = $chat_id_rs->fetch_assoc();
+                $chat_id;
+                if ($chat_id_rs->num_rows > 0) {
+                    $chat_id_data = $chat_id_rs->fetch_assoc();
+                    $chat_id = $chat_id_data["chat_id"];
+                } else {
+                    Database::iud("INSERT INTO `chat` (`user1`, `user2`, `datetime`) VALUES ('" . $smail . "', '" . $rmail . "', '" . $tcdate . "')");
+                    $chat_id = Database::$connection->insert_id;
+                }
 
                 if (isset($_POST["txt"])) {
-
-                    $d = new DateTime();
-                    $tz = new DateTimeZone("Asia/Colombo");
-                    $d->setTimezone($tz);
-                    $tcdate = $d->format("Y-m-d H:i:s"); // Current Date Time
                     // echo ($tcdate);
 
                     $tdate = $d->format("Y-m-d"); // Current Date 
@@ -41,8 +48,8 @@ if (isset($_POST["rmail"])) {
 
                     if (!empty($txt)) {
 
-                        Database::iud("INSERT INTO `content` (`chat_id`,`content`,`status`,`datetime`,`date`,`time`,`from`,`to`) VALUES ('" . $chat_id["chat_id"] . "','" . $txt . "','1','" . $tcdate . "','" . $tdate . "','" . $ttime . "','" . $smail . "','" . $rmail . "')");
-                        Database::iud("UPDATE `chat` SET `datetime`='" . $tcdate . "' WHERE `chat_id`='" . $chat_id["chat_id"] . "'");
+                        Database::iud("INSERT INTO `content` (`chat_id`, `content`, `date`, `time`, `status`, `attachment_id`, `to`, `datetime`, `from`) VALUES ('" . $chat_id . "', '" . $txt . "', '" . $tdate . "', '" . $ttime . "', 1, NULL, '" . $rmail . "', '2023-02-02 14:04:09', '" . $smail . "')");
+                        Database::iud("UPDATE `chat` SET `datetime`='" . $tcdate . "' WHERE `chat_id`='" . $chat_id . "'");
                         echo ("txt success");
                     } else if ($file_count > 0) {
 

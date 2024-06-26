@@ -27,7 +27,6 @@ if (isset($_SESSION["user"])) {
     Database::iud("INSERT INTO `user_has_subscription` (`user_email`, `subscription_id`, `date`, `validity`) VALUES ('" . $mail . "', '" . $subscription_data["subscription_id"] . "', '" . $date . "', '" . $validity . "')");
 
     echo ("1");
-
 } else {
     echo ("Please Sign in or Register");
 }

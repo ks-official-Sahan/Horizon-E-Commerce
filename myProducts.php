@@ -25,7 +25,7 @@ $pageno;
 
 </head>
 
-<body class="overflow-scroll" style="background-image: linear-gradient(90deg, hsl(4, 84%, 27%) 0%, hsl(10, 84%, 37%) 50%, hsl(5, 86%, 32%) 100%);">
+<body class="overflow-scroll homex">
 
     <div class="container-fluid vh-100 w-100">
         <div class="row">
@@ -69,8 +69,9 @@ $pageno;
                     <div class="col-12 col-lg-4 text-center text-lg-start">
                         <div class="row">
 
-                            <div class="col-12 col-lg-4 my-1" onclick="viewProfile();">
-                                <img src="<?php echo ($path); ?>" class="img-fluid rounded-circle w-75" style="max-height: 80px;" />
+                            <div class="col-12 col-lg-4 my-1" onclick="() => { window.location = adminProfile.php; }">
+                                <img src="<?php echo ($path); ?>" class="img-fluid rounded-circle w-75"
+                                    style="max-height: 80px;" />
                             </div>
 
                             <div class="col-12 col-lg-8">
@@ -82,7 +83,8 @@ $pageno;
                                         <span class="fw-bold"><?php echo ($email); ?></span>
                                     </div>
                                     <div class="col-12">
-                                        <span class="fw-bold cursor-pointer text-white" onclick="signOut();">Sign Out</span>
+                                        <span class="fw-bold cursor-pointer text-white" onclick="signOut();">Sign
+                                            Out</span>
                                     </div>
                                 </div>
                             </div>
@@ -111,82 +113,133 @@ $pageno;
             <!-- Nav -->
 
             <!-- contents -->
-            <div class="col-12 p-3">
+            <div class="col-12 p-4 px-lg-5">
                 <div class="row">
-                    <div class="col-12 rounded rounded-3 shadow" style="background-image: linear-gradient(120deg, hsl(124, 84%, 27%) 0%, hsl(130, 84%, 17%) 50%, hsl(135, 86%, 12%) 100%);">
-                        <div class="row">
+                    <div class="col-12 rounded rounded-3 shadow home">
+                        <div class="row justify-content-center align-items-center">
 
-                            <?php include "sort.php"; ?>
+                            <?php //include "sort.php"; ?>
 
-                            <!-- Products -->
-                            <div class="col-12 col-lg-9 mx-lg-auto mx-0 my-3 border border-secondary rounded">
-                                <div class="row">
+                            <?php
+                            $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` WHERE `admin_email`='" . $email . "' ORDER BY `datetime_added` DESC");
+                            if ($product_rs->num_rows > 0) {
+                                ?>
+                                <!-- Products -->
+                                <div class="col-12 col-lg-9 mx-lg-auto mx-0 my-3 border border-secondary rounded">
+                                    <div class="row">
 
-                                    <div class="offset-1 col-10 text-center">
-                                        <div class="row justify-content-center">
+                                        <div class="offset-1 col-10 text-center">
+                                            <div class="row justify-content-center">
 
-                                            <!-- Card -->
-                                            <div class="card my-1 col-12 col-lg-6 border-success" style="max-width: 500px; max-height: 140px;">
-                                                <div class="row g-0">
-                                                    <div class="col-md-4">
-                                                        <img src="resources/item_img/iphone14.jpg" onclick="viewProduct(0);" class="img-fluid rounded-start my-2" alt="..." style="height: 120px;" />
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="card-body my-auto">
-                                                            <h5 class="card-title">iPhone 14</h5>
-                                                            <span class="card-text fw-bold text-success">USD 699</span><span class="card-text fw-bold"> : </span>
-                                                            <span class="card-text fw-bold text-primary">10 Items Available</span>
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox" role="switch" id="fd" checked>
-                                                                <label class="form-check-label" for="fd">Make Product Deactive</label>
+                                                <?php
+                                                for ($count = 0; $count < $product_rs->num_rows; $count++) {
+                                                    $product_data = $product_rs->fetch_assoc();
+
+                                                    $img_rs = Database::search("SELECT * FROM `images` WHERE `product_id` = '" . $product_data["product_id"] . "'");
+                                                    $img_count = $img_rs->num_rows;
+
+                                                    $code;
+                                                    if ($img_count > 0) {
+                                                        $img_data = $img_rs->fetch_assoc();
+                                                        $code = $img_data["path"];
+                                                    } else {
+                                                        $code = "resources/item_img/images.jpg";
+                                                    }
+
+                                                    ?>
+                                                    <!-- Card -->
+                                                    <div class="card my-1 col-12 col-lg-6 border-success"
+                                                        style="max-width: 500px; max-height: 140px;">
+                                                        <div class="row g-0">
+                                                            <div class="col-md-4">
+                                                                <img src="<?php echo ($code); ?>"
+                                                                    onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);"
+                                                                    class="img-fluid rounded-start my-2" alt="..."
+                                                                    style="height: 120px;" />
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="row g-1">
-                                                                        <div class="col-12 col-lg-6 d-grid">
-                                                                            <button class="btn btn-success" onclick="updateProduct();">Update</button>
-                                                                        </div>
-                                                                        <div class="col-12 col-lg-6 d-grid">
-                                                                            <button class="btn btn-danger" onclick="deleteProduct();">Delete</button>
+                                                            <div class="col-md-8">
+                                                                <div class="card-body my-auto">
+                                                                    <h5 class="card-title">
+                                                                        <?php echo ($product_data['title']); ?>
+                                                                    </h5>
+                                                                    <span
+                                                                        class="card-text fw-bold text-success"><?php echo ($product_data['category']); ?></span><span
+                                                                        class="card-text fw-bold"> : </span>
+                                                                    <span
+                                                                        class="card-text fw-bold text-primary"><?php echo ($product_data['year']); ?></span>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            role="switch" id="fd" checked>
+                                                                        <label class="form-check-label" for="fd">Make Product
+                                                                            Deactive</label>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="row g-1">
+                                                                                <div class="col-12 col-lg-6 d-grid">
+                                                                                    <button class="btn btn-success"
+                                                                                        onclick="updateProduct();">Update</button>
+                                                                                </div>
+                                                                                <div class="col-12 col-lg-6 d-grid">
+                                                                                    <button class="btn btn-danger"
+                                                                                        onclick="deleteProduct();">Delete</button>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <!-- Card -->
+                                                    <?php
+                                                }
+                                                ?>
+
                                             </div>
-                                            <!-- Card -->
-
                                         </div>
+
+                                        <!-- Pagination -->
+                                        <div class="offset-2 offset-lg-4 col-8 col-lg-4 my-2">
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center">
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#" aria-label="Previous">
+                                                            <span aria-hidden="true">&laquo;</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#" aria-label="Next">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                        <!-- Pagination -->
+
+
                                     </div>
-
-                                    <!-- Pagination -->
-                                    <div class="offset-2 offset-lg-4 col-8 col-lg-4 my-2">
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <!-- Pagination -->
-
-
                                 </div>
-                            </div>
-                            <!-- Products -->
+                                <!-- Products -->
+                                <?php
+                            } else {
+                                ?>
+
+                                <div class="row justify-content-center align-items-center bg-transparent"
+                                    id="result-body-1">
+                                    <div class="col-12 col-lg-6 mt-3 mb-4">
+                                        <span class="h2 text-black-50"><i class="bi bi-search"
+                                                style="font-size: 100px;"></i></span>
+                                    </div>
+                                    <div class="col-12 mb-4">
+                                        <span class="h2 text-black-50">No Items Yet ...</span>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
 
                         </div>
                     </div>

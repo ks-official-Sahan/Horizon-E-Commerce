@@ -17,79 +17,89 @@
 
 <body>
 
-    <div class="container-fluid vh-100 w-100">
+    <div class="container-fluid homex vh-100 w-100">
         <div class="row justify-content-center align-items-center">
 
             <!-- header -->
-            <?php include "header.php"; ?>
+            <?php //include "header.php"; ?>
             <!-- header -->
 
             <!-- nav -->
-            <?php // include "navbar.php"; ?>
+            <?php
+
+            require "connection.php";
+
+            include "adminNavbar.php"; ?>
             <!-- nav -->
 
             <hr />
 
             <!-- content -->
-            <div class="col-12 bg-primary">
+            <div class="col-12 homex p-3 px-lg-4">
                 <div class="row g-1">
 
-                    <div class="col-12 bg-body rounded my-lg-3 my-1">
+                    <div class="col-12 bg-body bg-opacity-50 rounded my-lg-3 my-1">
                         <div class="row g-2 justify-content-center align-items-center">
 
-                            <div class="col-12 my-3">
+                            <div class="col-12 my-3 px-3">
                                 <div
                                     class="row g-2 justify-content-center align-items-center text-center text-lg-start">
 
-                                    <div class="col-12 col-lg-4 ">
+                                    <div class="col-12 col-lg-6 ">
                                         <div class="row justify-content-center">
                                             <div class="col-12">
                                                 <label class="form-label fw-bold fs-3">Category</label>
                                             </div>
                                             <div class="col-10">
-                                                <select class="form-select">
-                                                    <option>Select Category</option>
-                                                    <option>Analogue Electronics</option>
-                                                    <option>Computer Electronics</option>
-                                                    <option>Digital Electronics</option>
-                                                    <option>Phone & Accessories</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Brand</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select">
-                                                    <option>Select Brand</option>
-                                                    <option>Apple</option>
-                                                    <option>Samsung</option>
-                                                    <option>UGreen</option>
-                                                    <option>Panasonic</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Model</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select">
-                                                    <option>Select Model</option>
-                                                    <option>iPhone 14</option>
-                                                    <option>iPhone 14 Pro</option>
-                                                    <option>Note 10</option>
-                                                    <option>Note 20</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                <select class="form-select" id="category">
+                                                    <option value="0">Select Category</option>
+                                                    <?php
 
+                                                    $cat_rs = Database::search("SELECT * FROM `category`");
+                                                    $cat_count = $cat_rs->num_rows;
+
+                                                    for ($x = 0; $x < $cat_count; $x++) {
+
+                                                        $cat_data = $cat_rs->fetch_assoc();
+                                                        ?>
+                                                        <option value="<?php echo ($cat_data['category_id']); ?>">
+                                                            <?php echo ($cat_data["category"]); ?>
+                                                        </option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6 ">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12">
+                                                <label class="form-label fw-bold fs-3">Year</label>
+                                            </div>
+                                            <div class="col-10">
+                                                <select class="form-select" id="year">
+                                                    <option value="0">Select Year</option>
+                                                    <?php
+
+                                                    $year_rs = Database::search("SELECT * FROM `year`");
+                                                    $year_count = $year_rs->num_rows;
+
+                                                    for ($x = 0; $x < $year_count; $x++) {
+
+                                                        $year_data = $year_rs->fetch_assoc();
+
+                                                        ?>
+                                                        <option value="<?php echo ($year_data['year_id']); ?>">
+                                                            <?php echo ($year_data["year"]); ?>
+                                                        </option>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <hr class="mb-0" />
 
                                     <div class="col-12 text-center">
@@ -99,122 +109,6 @@
                                             </div>
                                             <div class="col-10">
                                                 <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Condition</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select">
-                                                    <option>Select Condition</option>
-                                                    <option>Brand New</option>
-                                                    <option>New</option>
-                                                    <option>Used</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Colour</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select">
-                                                    <option>Select Colour</option>
-                                                    <option>Rose Gold</option>
-                                                    <option>Phanthom Blue</option>
-                                                    <option>Graphite Black</option>
-                                                </select>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Add New Colour .." />
-                                                    <button class="btn btn-outline-primary">Add</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Quantity</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <input type="number" value="0" min="0" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 col-lg-6 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Unit Price</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="input-group">
-                                                    <div>
-                                                        <select class="form-select">
-                                                            <option>LKR</option>
-                                                            <option>USD</option>
-                                                        </select>
-                                                    </div>
-                                                    <input type="text" class="form-control" />
-                                                    <span class="input-group-text">.00</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Payment Methods</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="row align-items-center justify-content-center text-primary">
-                                                    <div class="col-2"><i class="bi bi-paypal"
-                                                            style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-credit-card-2-front"
-                                                            style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-credit-card"
-                                                            style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-cash"
-                                                            style="font-size: 25px;"></i></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Delivery Methods</label>
-                                            </div>
-                                            <div class="col-11">
-                                                <span>Delivery Fees are managed by the system according to delivery
-                                                    methods automatically. Approve the delivery methods you can use. So,
-                                                    the buyer will be able to choose the best delivery method he could
-                                                    afford.</span>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="row justify-content-center">
-                                                    <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">Horizon CSR Delivery Service</label>
-                                                    <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">International Delivery
-                                                        Services</label>
-                                                    <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">Private Service</label>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -234,7 +128,7 @@
 
                                     <hr class="mb-0" />
 
-                                    <div class="col-12 ">
+                                    <div class="col-12 p-3">
                                         <div class="row justify-content-center align-items-center">
                                             <div class="col-3 col-lg-2 border rounded border-primary">
                                                 <img src="resources/addproduct.svg" />
@@ -256,13 +150,7 @@
                                         </div>
                                     </div>
 
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 ">
-                                        <label class="form-label fs-3 fw-bold">Notice</label>
-                                        <p class="text-info">We are taking 5% of the product price from every product as
-                                            a service charge.</p>
-                                    </div>
+                                    <hr class="mb-3" />
 
                                     <div class="col-12 col-lg-6 d-grid">
                                         <button class="btn btn-warning" onclick="saveProduct();">Save Product</button>

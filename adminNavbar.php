@@ -18,7 +18,7 @@
         <?php
 
         // require "connection.php";
-
+        
         $email;
         $path;
         if (isset($_SESSION["admin"])) {
@@ -26,24 +26,14 @@
             $admin = $_SESSION["admin"];
             $email = $admin["email"];
 
-            $profile_rs = Database::search("SELECT * FROM `profile_image` WHERE `user_email`='" . $email . "'");
-            $profile_count = $profile_rs->num_rows;
+            $path = "resources/avatar.svg";
 
-            if ($profile_count > 0) {
-
-                $profile_data = $profile_rs->fetch_assoc();
-
-                $path = $profile_data["path"];
-            } else {
-
-                $path = "resources/avatar.svg";
-            }
-
-        ?>
+            ?>
 
             <div class="container-fluid">
                 <div class="col-6 col-lg-4">
-                    <button class="navbar-toggler btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <button class="navbar-toggler btn-dark" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
@@ -58,14 +48,17 @@
                     <div class="row justify-content-lg-end justify-content-center">
                         <div class="col-8">
                             <div class="dropdown-center d-grid">
-                                <button class="btn dropdown-toggle justify-content-end" type="button" data-bs-toggle="dropdown">
+                                <button class="btn dropdown-toggle justify-content-end" type="button"
+                                    data-bs-toggle="dropdown">
                                     <img src="<?php echo ($path); ?>" height="40px">
                                 </button>
                                 <ul class="bg-white dropdown-menu w-100 dropdown-menu-lg-end dropdown-menu-start">
-                                    <li><a class="dropdown-item" href="#" onclick="viewProfile(<?php echo ($email); ?>);">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#"
+                                            onclick="viewProfile(<?php echo ($email); ?>);">Profile</a></li>
                                     <li><a class="dropdown-item" href="myProducts.php">Products</a></li>
                                     <li>
-                                        <span class="fw-bold cursor-pointer dropdown-item" onclick="signOut();">Sign Out</span>
+                                        <span class="fw-bold cursor-pointer dropdown-item" onclick="signOut();">Sign
+                                            Out</span>
 
                                     </li>
                                 </ul>
@@ -76,24 +69,29 @@
                 <!-- Profile -->
 
                 <!-- Offcanvas -->
-                <div class="offcanvas text-uppercase offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas text-uppercase offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
 
                     <div class="offcanvas-header bg-white">
-                        <h5 class="offcanvas-title text-info" id="offcanvasNavbarLabel"><?php echo ($admin["fname"] . " " . $admin["lname"]); ?></h5>
+                        <h5 class="offcanvas-title text-info" id="offcanvasNavbarLabel">
+                            <?php echo ($admin["fname"] . " " . $admin["lname"]); ?>
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
 
                     <div class="offcanvas-body bg-white">
 
                         <div class="d-flex mb-3" role="search">
-                            <input class="text-white form-control me-2" id="panelSearch_input" type="search" placeholder="Search" aria-label="Search">
+                            <input class="text-white form-control me-2" id="panelSearch_input" type="search"
+                                placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success text-dark" onclick="panelSearch();">Search</button>
                         </div>
 
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item"><a class="nav-link" href="adminPanel.php">Dashboard</a></li>
                             <li class="nav-item dropdown mb-2">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Manage</a>
                                 <ul class="dropdown-menu bg-white">
                                     <li><a class="dropdown-item" href="manageUsers.php">Users</a></li>
                                     <li><a class="dropdown-item" href="manageproducts.php">Products</a></li>
@@ -106,7 +104,8 @@
                             <li class="nav-item"><a class="nav-link" href="#">Purchase History</a></li>
                             <li class="nav-item"><a class="nav-link" href="watchList.php">Watch List</a></li>
                             <li class="nav-item dropdown mb-2">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Categories</a>
                                 <ul class="dropdown-menu bg-white">
                                     <li><a class="dropdown-item" href="#">Analogue Electronics</a></li>
                                     <li><a class="dropdown-item" href="#">Computer Electronics</a></li>
@@ -128,10 +127,10 @@
                 <!-- Offcanvas -->
             </div>
 
-        <?php
+            <?php
 
-        } else {
-            header("Location:index.php");
+            // } else {
+            //     header("Location:index.php");
         }
 
         ?>

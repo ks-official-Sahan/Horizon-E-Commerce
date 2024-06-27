@@ -963,14 +963,76 @@ function addProduct() {
   window.location = "addProduct.php";
 }
 
-function saveProduct() {
-  alert("Product Save");
+function changeProductImages() {
+  // alert ("Change Product Image");
+  var image = document.getElementById("imageUploader");
 
-  window.location = "myProducts.php";
+  image.onchange = function () {
+    var file_count = image.files.length;
+    // alert (file_count);
+
+    if (file_count <= 3) {
+      for (var x = 0; x < file_count; x++) {
+        var file = this.files[x];
+        var url = window.URL.createObjectURL(file);
+
+        document.getElementById("img" + x).src = url;
+      }
+    } else {
+      alert("Please select 3 or less than 3 images");
+    }
+  };
 }
 
-function changeProductImages() {
-  alert("Upload Product Images");
+function saveProduct() {
+  // alert("Product Save");
+
+  var category = document.getElementById("category");
+  var year = document.getElementById("year");
+  var title = document.getElementById("title");
+  var description = document.getElementById("description");
+  // var colour_in = document.getElementById("clr_in")
+
+  // alert (colour_in.value);
+  // alert (category.value+" : "+brand.value+" : "+model.value+" : "+title.value+" : "+condition.value+" : "+colour.value" : "+quantity.value+" : "+price.value+" : "+dic.value+" : "+doc.value+" : "+description.value);
+
+  var file = document.getElementById("imageUploader");
+
+  var file_count = file.files.length;
+  // alert (file_count);
+
+  var form = new FormData();
+
+  form.append("category", category.value);
+  form.append("year", year.value);
+  form.append("title", title.value);
+  form.append("description", description.value);
+
+  // form.append("file_count",file_count);
+
+  if (file_count <= 3) {
+    for (var a = 0; a < file_count; a++) {
+      form.append("img" + a, file.files[a]);
+    }
+  }
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState == 4) {
+      var response = request.responseText;
+      alert (response);
+      if (response == "Product image saved successfully") {
+        //window.location.reload();
+        //window.location = "myProducts.php";
+      } else {
+        alert(response);
+      }
+    }
+  };
+
+  request.open("POST", "controllers/addNewProduct.php", true);
+  request.send(form);
 }
 
 function updateProduct() {

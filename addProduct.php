@@ -29,6 +29,8 @@
 
             require "connection.php";
 
+            session_start();
+
             include "adminNavbar.php"; ?>
             <!-- nav -->
 
@@ -108,7 +110,7 @@
                                                 <label class="form-label fw-bold fs-3">Title</label>
                                             </div>
                                             <div class="col-10">
-                                                <input type="text" class="form-control" />
+                                                <input type="text" id="title" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -121,7 +123,8 @@
                                                 <label class="form-label fw-bold fs-3">Description</label>
                                             </div>
                                             <div class="col-10">
-                                                <textarea class="form-control" cols="30" rows="10"></textarea>
+                                                <textarea id="description" class="form-control" cols="30"
+                                                    rows="10"></textarea>
                                             </div>
                                         </div>
                                     </div>

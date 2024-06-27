@@ -14,38 +14,39 @@
 
 <body>
 
-<?php
+    <?php
 
-$email;
-$fname;
-$lname;
+    $email;
+    $fname;
+    $lname;
 
-if (isset($_SESSION["user"])) {
+    if (isset($_SESSION["user"])) {
 
-    $user = $_SESSION["user"];
-    $email = $user["email"];
-    $fname = $user["fname"];
-    $lname = $user["lname"];
+        $user = $_SESSION["user"];
+        $email = $user["email"];
+        $fname = $user["fname"];
+        $lname = $user["lname"];
 
-    Database::iud("UPDATE `user` SET `status`='1' WHERE `email`='" . $email . "'");
-} else {
+        Database::iud("UPDATE `user` SET `status`='1' WHERE `email`='" . $email . "'");
+    } else {
 
-    $email = null;
-    $fname = "Horizon";
-    $lname = "CSR";
-}
+        $email = null;
+        $fname = "Horizon";
+        $lname = "CSR";
+    }
 
-?>
+    ?>
 
     <!-- Navbar -->
     <nav class="navbar" style="background-color: transparent;">
         <div class="container-fluid">
             <div class="col-6 col-lg-1">
-                <button class="navbar-toggler btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler btn-dark" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            
+
             <div class="col-lg-1 d-none d-lg-block">
                 <div class="logo" style="height: 50px;"></div>
             </div>
@@ -56,10 +57,12 @@ if (isset($_SESSION["user"])) {
                 </div>
             </div>
             <div class="col-lg-1"></div>
-            <div class="offcanvas text-uppercase offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas text-uppercase offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
 
                 <div class="offcanvas-header bg-dark">
-                    <h5 class="offcanvas-title text-info" id="offcanvasNavbarLabel"><?php echo ($fname . " " . $lname); ?></h5>
+                    <h5 class="offcanvas-title text-info" id="offcanvasNavbarLabel">
+                        <?php echo ($fname . " " . $lname); ?></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
 
@@ -81,7 +84,8 @@ if (isset($_SESSION["user"])) {
                         <li class="nav-item"><a class="nav-link text-white" href="recents.php">Recents</a></li>
                         <!-- <li class="nav-item"><a class="nav-link text-white" href="purchaseHistory.php">Purchase History</a></li> -->
                         <li class="nav-item dropdown mb-2">
-                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                             <ul class="dropdown-menu-dark border-light border rounded-3 pt-2 rounded bg-dark">
                                 <?php
 
@@ -101,9 +105,11 @@ if (isset($_SESSION["user"])) {
 
                                     $category_data = $category_rs->fetch_assoc();
 
-                                ?>
-                                    <li class="mt-1"><a class="dropdown-item text-white" href="#" onclick="viewCategory(<?php echo ($category_data['category_id']); ?>);"><?php echo ($category_data["category"]); ?></a></li>
-                                <?php
+                                    ?>
+                                    <li class="mt-1"><a class="dropdown-item text-white" href="#"
+                                            onclick="viewCategory(<?php echo ($category_data['category_id']); ?>);"><?php echo ($category_data["category"]); ?></a>
+                                    </li>
+                                    <?php
 
                                 }
 
@@ -117,15 +123,16 @@ if (isset($_SESSION["user"])) {
 
                                 if (isset($_GET["limit"])) {
 
-                                ?>
+                                    ?>
                                     <li class="mb-3"><a class="dropdown-item text-white" href="?">Collapse</a></li>
-                                <?php
+                                    <?php
 
                                 } else {
 
-                                ?>
-                                    <li class="mb-3"><a class="dropdown-item text-white" href="?limit=LIMIT 100">All</a></li>
-                                <?php
+                                    ?>
+                                    <li class="mb-3"><a class="dropdown-item text-white" href="?limit=LIMIT 100">All</a>
+                                    </li>
+                                    <?php
 
                                 }
 

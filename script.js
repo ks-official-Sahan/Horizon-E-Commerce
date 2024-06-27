@@ -1007,6 +1007,10 @@ function viewProduct(id) {
   window.location = "singleProductView.php?id=" + id;
 }
 
+function viewCategory(id) {
+  window.location = "home.php";
+}
+
 /*
  * payhere
  */

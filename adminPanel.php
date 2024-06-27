@@ -6,7 +6,7 @@ if (isset($_SESSION["admin"])) {
 
     $admin = $_SESSION["admin"];
 
-?>
+    ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -34,7 +34,11 @@ if (isset($_SESSION["admin"])) {
 
                 <!-- Header -->
                 <!-- Navbar -->
-                <?php include "adminNavbar.php"; ?>
+                <?php
+
+                require "connection.php";
+
+                include "adminNavbar.php"; ?>
                 <!-- Navbar -->
                 <!-- Header -->
 
@@ -65,11 +69,11 @@ if (isset($_SESSION["admin"])) {
                                     <div class="row">
 
                                         <!-- Time Ranges -->
-                                        <?php include "timeRanges.php"; ?>
+                                        <?php // include "timeRanges.php"; ?>
                                         <!-- Time Ranges -->
 
                                         <!-- Records -->
-                                        <div class="col-12 mb-3 pt-2 px-4">
+                                        <!-- <div class="col-12 mb-3 pt-2 px-4">
                                             <div class="row">
 
                                                 <div class="col-sm-6 col-lg-4">
@@ -157,7 +161,7 @@ if (isset($_SESSION["admin"])) {
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- Records -->
 
                                     </div>
@@ -179,7 +183,8 @@ if (isset($_SESSION["admin"])) {
 
                                             <!-- Table -->
                                             <div class="table-responsive">
-                                                <table class="table align-middle table-hover  table-striped-columns table-danger border-bottom border-success rounded">
+                                                <table
+                                                    class="table align-middle table-hover  table-striped-columns table-danger border-bottom border-success rounded">
                                                     <thead>
                                                         <tr class="border-bottom border-1 border-primary">
                                                             <th>#</th>
@@ -190,53 +195,37 @@ if (isset($_SESSION["admin"])) {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18500</td>
-                                                            <td>horizon.csr.official6@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:10</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18499</td>
-                                                            <td>horizon.csr.official5@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:09</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18498</td>
-                                                            <td>horizon.csr.official4@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:08</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18497</td>
-                                                            <td>horizon.csr.official3@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:07</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18496</td>
-                                                            <td>horizon.csr.official2@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:06</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18495</td>
-                                                            <td>horizon.csr.official1@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:05</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
+
+                                                        <?php
+                                                        $user_rs = Database::search("SELECT * FROM `user` ORDER BY `joined_date` DESC LIMIT 5");
+                                                        if ($user_rs->num_rows > 0) {
+                                                            for ($count = 0; $count < $user_rs->num_rows; $count++) {
+                                                                $user_data = $user_rs->fetch_assoc();
+                                                                ?>
+                                                                <tr class="border-bottom border-secondary">
+                                                                    <td><?php echo ($count); ?></td>
+                                                                    <td><?php echo ($user_data["email"]); ?></td>
+                                                                    <td><?php echo ($user_data["fname"]); ?></td>
+                                                                    <td><?php echo ($user_data["joined_date"]); ?></td>
+                                                                    <td><button class="btn btn-primary mx-3">Manage</button></td>
+                                                                </tr>
+                                                                <?php
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <tr class="border-bottom border-secondary">
+                                                                <td colspan="5">0 Users Found</td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                        ?>
+
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <td colspan="5" class="text-center text-primary">
-                                                                <a href="manageUsers.php" class="text-decoration-none fs-5 fw-bold">See All</a>
+                                                                <a href="manageUsers.php"
+                                                                    class="text-decoration-none fs-5 fw-bold">See All</a>
                                                             </td>
                                                         </tr>
                                                     </tfoot>
@@ -259,77 +248,80 @@ if (isset($_SESSION["admin"])) {
                                                     <span class="fw-bold fs-4 pt-4">New Products</span>
                                                 </div>
 
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
+                                                <?php
+                                                $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` ORDER BY `datetime_added` DESC LIMIT 5");
+                                                if ($product_rs->num_rows > 0) {
+                                                    for ($count = 0; $count < $product_rs->num_rows; $count++) {
+                                                        $product_data = $product_rs->fetch_assoc();
+
+                                                        $img_rs = Database::search("SELECT * FROM `images` WHERE `product_id` = '" . $product_data["product_id"] . "'");
+                                                        $img_count = $img_rs->num_rows;
+
+                                                        $code;
+                                                        if ($img_count > 0) {
+                                                            $img_data = $img_rs->fetch_assoc();
+                                                            $code = $img_data["path"];
+                                                        } else {
+                                                            $code = "resources/item_img/images.jpg";
+                                                        }
+
+                                                        ?>
+                                                        <!-- Card -->
+                                                        <div class="col-12 col-sm-6 col-lg-3">
+                                                            <div class="card">
+                                                                <div class="row justify-content-center">
+                                                                    <img src="<?php echo ($code); ?>" class="card-img-top px-2 py-2"
+                                                                        style="height: 200px; width: 200px;" />
+                                                                </div>
+                                                                <div class="card-body text-center">
+                                                                    <span
+                                                                        class="card-title fw-bold fs-4"><?php echo ($product_data["title"]); ?></span><br />
+                                                                    <span class="card-text text-success fw-bold fs-6">Year:
+                                                                        <?php echo ($product_data["year"]); ?></span><br />
+                                                                    <span
+                                                                        class="card-text text-warning fw-bold fs-6">Category<?php echo ($product_data["category"]); ?></span><br />
+                                                                    <div class="d-grid">
+                                                                        <button class="btn btn-danger"
+                                                                            onclick="manageProduct(<?php echo ($product_data['product_id']); ?>);">Manage</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
+                                                        <!-- Card -->
+
+                                                        <?php
+                                                    }
+                                                } else {
+                                                    ?>
+
+                                                    <!-- Card -->
+                                                    <div class="col-12 col-sm-6 col-lg-3">
+                                                        <div class="card">
+                                                            <div class="row justify-content-center">
+                                                                <img src="resources/item_img/image2.jpg"
+                                                                    class="card-img-top px-2 py-2"
+                                                                    style="height: 200px; width: 200px;" />
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <span class="card-text text-warning fw-bold fs-6">No products
+                                                                    found</span><br />
+                                                                <div class="d-grid">
+                                                                    <button class="btn btn-danger" onclick="addProduct();">Add
+                                                                        New Products</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- Card -->
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
-                                                        </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Card -->
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
-                                                        </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid px-4">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Card -->
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
-                                                        </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Card -->
+                                                    <!-- Card -->
+                                                    <?php
+                                                }
+                                                ?>
+
 
                                                 <div class="col-12 col-lg-8 d-grid text-center pt-4 mb-3">
-                                                    <a href="manageProducts.php" class="btn btn-outline-primary fw-bold text-decoration-none fs-5">See All</a>
+                                                    <a href="manageProducts.php"
+                                                        class="btn btn-outline-primary fw-bold text-decoration-none fs-5">See
+                                                        All</a>
                                                 </div>
 
                                             </div>
@@ -364,7 +356,7 @@ if (isset($_SESSION["admin"])) {
 
     </html>
 
-<?php
+    <?php
 
 } else if (isset($_SESSION["user"])) {
 

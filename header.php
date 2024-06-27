@@ -43,7 +43,7 @@
 
         $path = "resources/avatar.svg";
     }
-    
+
     ?>
 
     <!-- Header -->
@@ -67,37 +67,48 @@
 
                     if (isset($_SESSION["user"])) {
 
-                    ?>
+                        ?>
 
                         <div class="col-12">
                             <div class="dropdown justify-content-end d-grid">
-                                <button class="btn dropdown-toggle border-0" type="button" style="min-width: 70px;" data-bs-toggle="dropdown">
-                                    <img src="<?php echo ($path); ?>" class="rounded-circle" style="height: 40px; width: 100%;">
+                                <button class="btn dropdown-toggle border-0" type="button" style="min-width: 70px;"
+                                    data-bs-toggle="dropdown">
+                                    <img src="<?php echo ($path); ?>" class="rounded-circle"
+                                        style="height: 40px; width: 100%;">
                                 </button>
-                                <ul class="dropdown-menu shadow w-100 dropdown-menu-lg-end dropdown-menu-start" style="background-image: linear-gradient(90deg, hsl(270, 88%, 45%) 0%, hsl(240, 68%, 45%) 100%); letter-spacing: 0.1rem;">
-                                    <li class="mt-1 p-2 text-center text-white"><span class="fs-5">Hi, <?php echo ($fname); ?></span></li>
+                                <ul class="dropdown-menu shadow w-100 dropdown-menu-lg-end dropdown-menu-start"
+                                    style="background-image: linear-gradient(90deg, hsl(270, 88%, 45%) 0%, hsl(240, 68%, 45%) 100%); letter-spacing: 0.1rem;">
+                                    <li class="mt-1 p-2 text-center text-white"><span class="fs-5">Hi,
+                                            <?php echo ($fname); ?></span></li>
                                     <li class="mt-1">
                                         <hr class="dropdown-divider" />
                                     </li>
-                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark" href="#" onclick="viewProfile();">Profile</a></li>
-                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark" href="watchList.php">Watch List</a></li>
-                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark" href="messages.php?m">Messages</a></li>
-                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark" href="recents.php">Recents</a></li>
+                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark" href="#"
+                                            onclick="viewProfile();">Profile</a></li>
+                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark" href="watchList.php">Watch
+                                            List</a></li>
+                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark"
+                                            href="messages.php?m">Messages</a></li>
+                                    <li class="mt-1"><a class="dropdown-item fw-bold text-dark"
+                                            href="recents.php">Recents</a></li>
                                     <li class="mt-1">
                                         <hr class="dropdown-divider" />
                                     </li>
-                                    <li class="p-1 text-center"><span class="fw-bold btn fs-5 dropdown-item mt-1 mb-1 text-warning" onclick="signOut();">Sign Out</span></li>
+                                    <li class="p-1 text-center"><span
+                                            class="fw-bold btn fs-5 dropdown-item mt-1 mb-1 text-warning"
+                                            onclick="signOut();">Sign Out</span></li>
                                 </ul>
                             </div>
                         </div>
 
-                    <?php
+                        <?php
 
                     } else {
 
-                    ?>
-                        <span class="fw-bold cursor-pointer btn text-warning" onclick="window.location = 'index.php';">Sign in or Register</span>
-                    <?php
+                        ?>
+                        <span class="fw-bold cursor-pointer btn text-warning" onclick="window.location = 'index.php';">Sign
+                            in or Register</span>
+                        <?php
 
                     }
 
@@ -130,7 +141,8 @@
             <div class="modal-content rounded rounded-4 shadow" style="<?php echo ($result); ?>">
                 <!-- <div class="modal-content" style="background-image: linear-gradient(90deg, hsl(351, 70%, 56%) 0%, hsl(223, 67%, 44%) 50%, hsl(253, 46%, 32%) 100%);"> -->
                 <div class="modal-header text-center shadow">
-                    <h5 class="modal-title text-primary fw-bold text-uppercase fs-4" style="letter-spacing: 0.1rem;">Help & Support</h5>
+                    <h5 class="modal-title text-primary fw-bold text-uppercase fs-4" style="letter-spacing: 0.1rem;">
+                        Help & Support</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -145,7 +157,8 @@
                                 <div class="row align-content-center align-items-center justify-content-center py-lg-3">
 
                                     <div class="col-5 col-lg-4 h-100">
-                                        <div class="row justify-content-center align-items-center align-content-center" style="overflow-y: auto;">
+                                        <div class="row justify-content-center align-items-center align-content-center"
+                                            style="overflow-y: auto;">
                                             <?php
 
                                             $admin_rs = Database::search("SELECT * FROM `admin` ORDER BY `fname`");
@@ -155,11 +168,14 @@
 
                                                 $admin_data = $admin_rs->fetch_assoc();
 
-                                            ?>
+                                                ?>
                                                 <div class="col-11 d-grid">
                                                     <!-- <span class="text-black-50 fw-bold fs-6 btn btn-outline-light mb-3 mt-3 border-0" style="letter-spacing: 0.1rem;" onclick="setAdminMail('<?php echo ($admin_data['email']); ?>');"> -->
-                                                    <span class="text-black-50 fw-bold fs-6 shadow btn btn-outline-light mb-3 mt-3 border-0" style="letter-spacing: 0.1rem; <?php // echo ($result); 
-                                                                                                                                                                            ?>" onclick="setAdminMail('<?php echo ($admin_data['email']); ?>');">
+                                                    <span
+                                                        class="text-black-50 fw-bold fs-6 shadow btn btn-outline-light mb-3 mt-3 border-0"
+                                                        style="letter-spacing: 0.1rem; <?php // echo ($result); 
+                                                            ?>"
+                                                        onclick="setAdminMail('<?php echo ($admin_data['email']); ?>');">
                                                         <?php
 
                                                         echo ($admin_data["fname"] . " " . $admin_data["lname"]);
@@ -178,7 +194,7 @@
                                                         ?>
                                                     </span>
                                                 </div>
-                                            <?php
+                                                <?php
 
                                             }
 
@@ -187,27 +203,33 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-7 col-lg-8 text-white border-start rounded-3 px-3 mt-2 mt-lg-2 d-flex">
+                                    <div
+                                        class="col-7 col-lg-8 text-white border-start rounded-3 px-3 mt-2 mt-lg-2 d-flex">
                                         <div class="row justify-content-center align-content-center align-items-center">
 
                                             <div class="col-12 d-none">
                                                 <label class="form-label">Admin</label>
-                                                <input type="email" class="form-control" id="amail" value="<?php echo ($owner); ?>" />
+                                                <input type="email" class="form-control" id="amail"
+                                                    value="<?php echo ($owner); ?>" />
                                             </div>
                                             <div class="col-12 mb-3 mt-1">
                                                 <label class="form-label">Email</label>
-                                                <input type="email" class="form-control" value="<?php echo ($email); ?>" id="umail" placeholder="Enter your email" />
+                                                <input type="email" class="form-control" value="<?php echo ($email); ?>"
+                                                    id="umail" placeholder="Enter your email" />
                                             </div>
                                             <div class="col-12 mb-3">
                                                 <label class="form-label">Subject</label>
-                                                <input type="text" class="form-control" id="subject" placeholder="Enter the subject" />
+                                                <input type="text" class="form-control" id="subject"
+                                                    placeholder="Enter the subject" />
                                             </div>
                                             <div class="col-12 mb-3">
-                                                <textarea cols="30" rows="9" class="form-control" id="content" placeholder="Enter your problem"></textarea>
+                                                <textarea cols="30" rows="9" class="form-control" id="content"
+                                                    placeholder="Enter your problem"></textarea>
                                             </div>
 
                                             <div class="col-12 col-lg-6 d-grid mb-2 mb-lg-4">
-                                                <button class="btn btn-light text-dark fs-6 text-uppercase" onclick="sendSupportMsg();">Send</button>
+                                                <button class="btn btn-light text-dark fs-6 text-uppercase"
+                                                    onclick="sendSupportMsg();">Send</button>
                                             </div>
 
                                         </div>

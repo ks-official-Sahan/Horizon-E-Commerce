@@ -894,13 +894,43 @@ function basicSearch(x) {
 
 function advancedSearch(x) {
   // alert("Advanced Search");
-  // alert(x);
 
-  var resulBody1 = document.getElementById("result-body-1");
-  var resulBody2 = document.getElementById("result-body-2");
+  var txt = document.getElementById("advancedSearch");
+  var category = document.getElementById("category");
+  var genre = document.getElementById("genre");
+  var year = document.getElementById("year");
+  var sort = document.getElementById("sort");
 
-  resulBody1.classList.toggle("d-none");
-  resulBody2.classList.toggle("d-none");
+  var form = new FormData();
+  form.append("page", x);
+  form.append("txt", txt.value);
+  form.append("category", category.value);
+  form.append("genre", genre.value);
+  form.append("year", year.value);
+  form.append("sort", sort.value);
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function () {
+    if (request.readyState == 4) {
+      var response = request.responseText;
+      // alert(response);
+      // console.log(response);
+      var resultBody1 = document.getElementById("result-body-1");
+      var resultBody2 = document.getElementById("result-body-2");
+      resultBody1.classList.add("d-none");
+      resultBody2.classList.remove("d-none");
+      // resultBody1.classList.toggle("d-none");
+      // resultBody2.classList.toggle("d-none");
+      resultBody2.innerHTML = response;
+    } else {
+      document.getElementById("result-body-1").classList.add("d-none");
+      document.getElementById("result-body-2").classList.remove("d-none");
+    }
+  };
+
+  request.open("POST", "controllers/advancedSearchProcess.php", true);
+  request.send(form);
 }
 
 function homeSearch() {

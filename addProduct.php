@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
 
-    <link rel="shortcut icon" href="resources/logo/HS logo black png.png"  type="image/x-icon" />
-
+    <link rel="shortcut icon" href="resources/logo/HS logo black png.png" type="image/x-icon" />
 </head>
 
 <body>
@@ -39,7 +38,8 @@
                         <div class="row g-2 justify-content-center align-items-center">
 
                             <div class="col-12 my-3">
-                                <div class="row g-2 justify-content-center align-items-center text-center text-lg-start">
+                                <div
+                                    class="row g-2 justify-content-center align-items-center text-center text-lg-start">
 
                                     <div class="col-12 col-lg-4 ">
                                         <div class="row justify-content-center">
@@ -133,7 +133,8 @@
                                                     <option>Graphite Black</option>
                                                 </select>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Add New Colour .." />
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Add New Colour .." />
                                                     <button class="btn btn-outline-primary">Add</button>
                                                 </div>
                                             </div>
@@ -165,7 +166,7 @@
                                                             <option>USD</option>
                                                         </select>
                                                     </div>
-                                                    <input type="text" class="form-control"/>
+                                                    <input type="text" class="form-control" />
                                                     <span class="input-group-text">.00</span>
                                                 </div>
                                             </div>
@@ -178,10 +179,14 @@
                                             </div>
                                             <div class="col-10">
                                                 <div class="row align-items-center justify-content-center text-primary">
-                                                    <div class="col-2"><i class="bi bi-paypal" style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-credit-card-2-front" style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-credit-card" style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-cash" style="font-size: 25px;"></i></div>
+                                                    <div class="col-2"><i class="bi bi-paypal"
+                                                            style="font-size: 25px;"></i></div>
+                                                    <div class="col-2"><i class="bi bi-credit-card-2-front"
+                                                            style="font-size: 25px;"></i></div>
+                                                    <div class="col-2"><i class="bi bi-credit-card"
+                                                            style="font-size: 25px;"></i></div>
+                                                    <div class="col-2"><i class="bi bi-cash"
+                                                            style="font-size: 25px;"></i></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,14 +200,18 @@
                                                 <label class="form-label fw-bold fs-3">Delivery Methods</label>
                                             </div>
                                             <div class="col-11">
-                                                <span>Delivery Fees are managed by the system according to delivery methods automatically. Approve the delivery methods you can use. So, the buyer will be able to choose the best delivery method he could afford.</span>
+                                                <span>Delivery Fees are managed by the system according to delivery
+                                                    methods automatically. Approve the delivery methods you can use. So,
+                                                    the buyer will be able to choose the best delivery method he could
+                                                    afford.</span>
                                             </div>
                                             <div class="col-10">
                                                 <div class="row justify-content-center">
                                                     <input type="checkbox" class="form-check-input" />
                                                     <label class="form-check-label">Horizon CSR Delivery Service</label>
                                                     <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">International Delivery Services</label>
+                                                    <label class="form-check-label">International Delivery
+                                                        Services</label>
                                                     <input type="checkbox" class="form-check-input" />
                                                     <label class="form-check-label">Private Service</label>
                                                 </div>
@@ -239,8 +248,10 @@
                                         </div>
                                         <div class="row justify-content-center my-1 align-items-center">
                                             <div class="col-9 col-lg-6 d-grid">
-                                                <input type="file" accept="image/*" class="d-none" id="imageUploader" multiple>
-                                                <label class="btn btn-success" for="imageUploader" onclick="changeProductImages();">Upload Images</label>
+                                                <input type="file" accept="image/*" class="d-none" id="imageUploader"
+                                                    multiple>
+                                                <label class="btn btn-success" for="imageUploader"
+                                                    onclick="changeProductImages();">Upload Images</label>
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +260,8 @@
 
                                     <div class="col-12 ">
                                         <label class="form-label fs-3 fw-bold">Notice</label>
-                                        <p class="text-info">We are taking 5% of the product price from every product as a service charge.</p>
+                                        <p class="text-info">We are taking 5% of the product price from every product as
+                                            a service charge.</p>
                                     </div>
 
                                     <div class="col-12 col-lg-6 d-grid">

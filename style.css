@@ -1,3 +1,69 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-weight: bold; */
+}
+
+:root {
+    --logo-black: url("resources/logo/HS-Black.png");
+    --logo-white: url("resources/logo/HS-PSD.png");
+    /*  */
+    --index-color-1: hsl(10, 30%, 85%);
+    --index-color-2: hsl(100, 50%, 90%);
+    --index-color-3: hsl(212, 30%, 85%);
+
+    --home-color-1: hsl(221, 88%, 34%);
+    --home-color-2: hsl(0, 0%, 84%);
+    --home-color-3: hsl(196, 61%, 42%);
+    --home-color-4: hsl(215, 45%, 49%);
+    --home-color-5: hsl(211, 72%, 39%);
+
+    --header-color-1: trasparent;
+    --header-color-2: trasparent;
+
+    --dropdown-color-1: hsl(219, 88%, 75%);
+    --dropdown-color-2: hsl(207, 69%, 80%);
+    /*  */
+    --bs-blue: #0d6efd;
+    --bs-indigo: #6610f2;
+    --bs-purple: #6f42c1;
+    --bs-pink: #d63384;
+    --bs-red: #dc3545;
+    --bs-orange: #fd7e14;
+    --bs-yellow: #ffc107;
+    --bs-green: #198754;
+    --bs-teal: #20c997;
+    --bs-cyan: #0dcaf0;
+    --bs-black: #000;
+    --bs-white: #fff;
+    --bs-gray: #6c757d;
+    /*  */
+    --bs-primary: #0d6efd;
+    --bs-secondary: #6c757d;
+    --bs-success: #198754;
+    --bs-info: #0dcaf0;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #f8f9fa;
+    --bs-dark: #212529;
+}
+
+.index {
+    background-image: linear-gradient(179deg, var(--index-color-1) 0%, var(--index-color-2) 60%, var(--index-color-3) 100%);
+    background-size: 3%;
+}
+
+.home {
+    background-image: linear-gradient(150deg, var(--home-color-2) 0%, var(--home-color-1) 100%);
+}
+
+.homex {
+    background-image: linear-gradient(90deg, var(--home-color-3) 0%, var(--home-color-1) 100%);
+}
+
+.homex2 {
+    background-image: linear-gradient(90deg, var(--home-color-4) 0%, var(--home-color-5) 100%);
+}
+
 .mainBody {
     overflow: hidden;
     /* background-image: url("resources/background.jpg"); */
@@ -36,7 +102,9 @@
 .adminSignInBtn {
     letter-spacing: 0.7rem;
     font-family: monospace;
-}.adminSignInBtn:hover {
+}
+
+.adminSignInBtn:hover {
     background-image: linear-gradient(240deg, hsl(351, 70%, 56%) 0%, hsl(223, 40%, 53%) 50%, hsl(253, 46%, 32%) 100%);
 }
 
@@ -66,6 +134,7 @@
     font-family: "Quick";
     src: url("resources/fonts/Quick.ttf");
 }
+
 @font-face {
     font-family: "Electric";
     src: url("resources/fonts/Electric.otf");
@@ -84,7 +153,7 @@
     right: 0;
 }
 
-.slider-img{
+.slider-img {
     height: 550px;
 }
 
@@ -116,11 +185,12 @@
     background-position: center;
 }
 
-.chats{
+.chats {
     background-color: hsl(203, 32%, 10%);
 }
 
-.chatBody:hover,.chatBody:focus {
+.chatBody:hover,
+.chatBody:focus {
     /* opacity: 1; */
     background-color: hsl(203, 22%, 21%);
     cursor: pointer;
@@ -129,15 +199,21 @@
 
 .msgtxt::-webkit-scrollbar {
     width: 10px;
-}.msgtxt::-webkit-scrollbar-track {
+}
+
+.msgtxt::-webkit-scrollbar-track {
     border-radius: 0 8px 8px 0;
-    background-color: hsl(203,22%,21%);
+    background-color: hsl(203, 22%, 21%);
     /* box-shadow: inset 0 0 2px hsl(208, 8%, 45%); */
-}.msgtxt::-webkit-scrollbar-thumb {
+}
+
+.msgtxt::-webkit-scrollbar-thumb {
     border-radius: 6px;
     background-color: hsl(345, 2%, 41%);
     /* border: 1px solid hsl(348, 7%, 27%); */
-}.msgtxt::-webkit-scrollbar-thumb:hover{
+}
+
+.msgtxt::-webkit-scrollbar-thumb:hover {
     background-color: hsl(190, 59%, 46%);
 }
 
@@ -146,30 +222,44 @@
     overflow-y: scroll;
     max-height: 80vh;
     min-height: 60vh;
-}.openChatBody::-webkit-scrollbar {
+}
+
+.openChatBody::-webkit-scrollbar {
     width: 10px;
-}.openChatBody::-webkit-scrollbar-track {
+}
+
+.openChatBody::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: hsl(203,22%,21%);
+    background-color: hsl(203, 22%, 21%);
     /* box-shadow: inset 0 0 2px hsl(200, 12%, 35%); */
-}.openChatBody::-webkit-scrollbar-thumb {
+}
+
+.openChatBody::-webkit-scrollbar-thumb {
     border-radius: 6px;
     background-color: hsl(345, 2%, 41%);
     /* border: 1px solid hsl(348, 7%, 27%); */
-}.openChatBody::-webkit-scrollbar-thumb:hover{
+}
+
+.openChatBody::-webkit-scrollbar-thumb:hover {
     background-color: hsl(190, 59%, 46%);
 }
 
 .offcanvasadmin::-webkit-scrollbar {
     width: 10px;
-}.offcanvasadmin::-webkit-scrollbar-track {
+}
+
+.offcanvasadmin::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: hsl(203,22%,21%);
+    background-color: hsl(203, 22%, 21%);
     /* box-shadow: inset 0 0 2px hsl(200, 12%, 35%); */
-}.offcanvasadmin::-webkit-scrollbar-thumb {
+}
+
+.offcanvasadmin::-webkit-scrollbar-thumb {
     border-radius: 6px;
     background-color: hsl(345, 2%, 41%);
     /* border: 1px solid hsl(348, 7%, 27%); */
-}.offcanvasadmin::-webkit-scrollbar-thumb:hover{
+}
+
+.offcanvasadmin::-webkit-scrollbar-thumb:hover {
     background-color: hsl(190, 59%, 46%);
 }

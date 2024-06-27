@@ -351,24 +351,58 @@
                     <div class="col-12 d-none" id="result-body-2">
                         <div class="row g-4 gap-3 justify-content-center">
 
-                            <!-- Cards -->
-                            <div class="card" style="width: 16rem;">
-                                <img src="resources/item_img/iphone14pro.jpg" onclick="viewProduct(0);"
-                                    class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title fw-bold">iPhone 14 Pro</h5>
-                                    <span class="card-text fw-bold text-success">Price: USD 899</span><br />
-                                    <span class="card-text fw-bold text-warning">Stock: 12 Items Available</span>
-                                    <div class="d-grid gap-1">
-                                        <a href="#" class="btn btn-primary" onclick="plaNow(0);">Play Now</a>
-                                        <a href="#" class="btn btn-secondary" onclick="addToCart(0);">Add to Cart</a>
-                                        <a href="#" class="btn btn-danger" onclick="addToWatchList(0);">Add to Watch
-                                            List</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Cards -->
+                            <?php
+                            $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `product`.`year_id`=`year`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` WHERE `product_id` LIKE '%" . $pid . "%' AND `status_id`='1' ORDER BY `datetime_added` DESC LIMIT 10 OFFSET 0");
+                            $product_count = $product_rs->num_rows;
 
+                            if ($product_count > 0) {
+
+                                for ($z = 0; $z < $product_count; $z++) {
+
+                                    $product_data = $product_rs->fetch_assoc();
+
+                                    $img_rs = Database::search("SELECT * FROM `images` WHERE `product_id` = '" . $product_data["product_id"] . "'");
+                                    $img_count = $img_rs->num_rows;
+
+                                    $code;
+                                    if ($img_count > 0) {
+                                        $img_data = $img_rs->fetch_assoc();
+                                        $code = $img_data["path"];
+                                    } else {
+                                        $code = "resources/item_img/image2.jpg";
+                                    }
+
+                                    ?>
+
+
+                                    <!-- Cards -->
+                                    <div class="card" style="width: 16rem;">
+                                        <img src="<?php echo ($code) ?>"
+                                            onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);"
+                                            class="card-img-top my-3 mx-auto" alt="..." style="height: 200px; width: 170px;" />
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title fw-bold"><?php echo ($product_data["title"]); ?></h5>
+                                            <span class="card-text fw-bold text-success">Year :
+                                                <?php echo ($product_data["year"]); ?></span><br />
+                                            <span class="card-text fw-bold text-warning">Category :
+                                                <?php echo ($product_data["category"]); ?></span>
+                                            <div class="d-grid gap-1">
+                                                <a href="#" class="btn btn-primary"
+                                                    onclick="viewProduct(<?php echo ($product_data['product_id']); ?>);">Play
+                                                    Now</a>
+                                                <a href="#" class="btn btn-danger"
+                                                    onclick="addToWatchList(<?php echo ($product_data['product_id']); ?>);">Add
+                                                    to Watch List
+                                                    List</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Cards -->
+
+                                    <?php
+                                }
+                            }
+                            ?>
                             <!-- Pagination -->
                             <div class="mt-2">
                                 <nav aria-label="Page navigation example">

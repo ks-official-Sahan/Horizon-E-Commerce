@@ -31,7 +31,6 @@ if (isset($_SESSION["admin"])) {
     </head>
 
     <body>
-
         <div class="container-fluid">
             <div class="row">
 

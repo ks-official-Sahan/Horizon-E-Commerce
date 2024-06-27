@@ -12,239 +12,276 @@
     <link rel="stylesheet" href="bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
 
-    <link rel="shortcut icon" href="resources/logo/HS logo black png.png"  type="image/x-icon" />
+    <link rel="shortcut icon" href="resources/logo/HS logo black png.png" type="image/x-icon" />
 
 </head>
 
 <body>
 
-    <div class="container-fluid vh-100 w-100">
+    <div class="container-fluid home vh-100 w-100">
         <div class="row justify-content-center align-items-center">
 
-            <!-- header -->
-            <?php include "header.php"; ?>
-            <!-- header -->
-
             <!-- nav -->
-            <?php // include "navbar.php"; ?>
-            <!-- nav -->
+            <?php
 
-            <hr />
+            session_start();
 
-            <!-- content -->
-            <div class="col-12 bg-primary">
-                <div class="row g-1">
+            require "connection.php";
 
-                    <div class="col-12 bg-body rounded my-lg-3 my-1">
-                        <div class="row g-2 justify-content-center align-items-center">
+            $pid = $_GET["id"];
+            $product_rs = Database::search("SELECT * FROM `product` WHERE `product_id`='" . $pid . "'");
+            if ($product_rs->num_rows > 0) {
+                $product_data = $product_rs->fetch_assoc();
 
-                            <div class="col-12 my-3">
-                                <div class="row g-2 justify-content-center align-items-center text-center text-lg-start">
+                $version_rs = Database::search("SELECT * FROM `version` INNER JOIN `size` ON `version`.`size_id`=`size`.`size_id` INNER JOIN `quality` ON `version`.`quality_id`=`quality`.`quality_id` WHERE `product_id`='" . $product_data["product_id"] . "'");
+                $isVersion = false;
+                $version_data;
+                if ($version_rs->num_rows > 0) {
+                    $version_data = $version_rs->fetch_assoc();
+                    $isVersion = true;
+                }
 
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Category</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select disabled" disabled>
-                                                    <option>Selected Category</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Brand</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select disabled" disabled>
-                                                    <option>Selected Brand</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Model</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select disabled" disabled>
-                                                    <option>Selected Model</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                include "adminNavbar.php"; ?>
+                <!-- nav -->
 
-                                    <hr class="mb-0" />
+                <!-- nav -->
 
-                                    <div class="col-12 text-center">
-                                        <div class="row justify-content-center text-lg-start">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Title</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <input type="text" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
+                <hr />
 
-                                    <hr class="mb-0" />
+                <!-- content -->
+                <div class="col-12 homex p-3 px-lg-4">
+                    <div class="row g-1">
 
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Condition</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select disabled" disabled>
-                                                    <option>Selected Condition</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Colour</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <select class="form-select disabled" disabled>
-                                                    <option>Selected Colour</option>
-                                                </select>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control disabled" placeholder="Colour Selected.." disabled/>
-                                                    <button class="btn btn-outline-primary">Add</button>
+                        <div class="col-12 bg-body bg-opacity-50 rounded my-lg-3 my-1">
+                            <div class="row g-2 justify-content-center align-items-center">
+
+                                <div class="col-12 my-3 px-3">
+                                    <div
+                                        class="row g-2 justify-content-center align-items-center text-center text-lg-start">
+
+                                        <div class="col-12 col-lg-6 mb-3">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12">
+                                                    <label class="form-label fw-bold fs-3">Category</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select class="form-select" id="category">
+                                                        <option value="0">Select Category</option>
+                                                        <?php
+
+                                                        $cat_rs = Database::search("SELECT * FROM `category`");
+                                                        $cat_count = $cat_rs->num_rows;
+
+                                                        for ($x = 0; $x < $cat_count; $x++) {
+
+                                                            $cat_data = $cat_rs->fetch_assoc();
+                                                            ?>
+                                                            <option value="<?php echo ($cat_data['category_id']); ?>" <?php if ($cat_data['category_id'] == $product_data['category_id']) { ?>
+                                                                    selected <?php } ?>>
+                                                                <?php echo ($cat_data["category"]); ?>
+                                                            </option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Quantity</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <input type="number" value="0" min="0" class="form-control" />
+                                        <div class="col-12 col-lg-6 ">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12">
+                                                    <label class="form-label fw-bold fs-3">Year</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <select class="form-select" id="year">
+                                                        <option value="0">Select Year</option>
+                                                        <?php
+
+                                                        $year_rs = Database::search("SELECT * FROM `year`");
+                                                        $year_count = $year_rs->num_rows;
+
+                                                        for ($x = 0; $x < $year_count; $x++) {
+
+                                                            $year_data = $year_rs->fetch_assoc();
+
+                                                            ?>
+                                                            <option value="<?php echo ($year_data['year_id']); ?>" <?php if ($year_data['year_id'] == $product_data['year_id']) { ?> selected
+                                                                <?php } ?>>
+                                                                <?php echo ($year_data["year"]); ?>
+                                                            </option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <hr class="mb-0" />
 
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 col-lg-6 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Unit Price</label>
+                                        <div class="col-12 text-center mb-3">
+                                            <div class="row justify-content-center text-lg-start">
+                                                <div class="col-12">
+                                                    <label class="form-label fw-bold fs-3">Title</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <input type="text" id="title" class="form-control"
+                                                        value="<?php echo ($product_data['title']); ?>" />
+                                                </div>
                                             </div>
-                                            <div class="col-10">
-                                                <div class="input-group">
-                                                    <div>
-                                                        <select class="form-select disabled" disabled>
-                                                            <option>LKR</option>
-                                                            <option>USD</option>
-                                                        </select>
+                                        </div>
+
+                                        <hr class="mb-0" />
+
+                                        <div class="col-12 mb-3">
+                                            <div class="row justify-content-center">
+                                                <div class="col-12">
+                                                    <label class="form-label fw-bold fs-3">Description</label>
+                                                </div>
+                                                <div class="col-10">
+                                                    <textarea id="description" class="form-control" cols="30"
+                                                        rows="5"><?php echo ($product_data['description']); ?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr class="mb-0" />
+
+                                        <div class="col-12 mb-3">
+                                            <div class="row justify-content-center">
+                                                <div class="col-8">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-10">
+                                                            <label class="form-label fw-bold fs-3">URL</label>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <input class="form-control" type="text" id="url"
+                                                                value="<?php echo ($version_data["path"]); ?>">
+                                                        </div>
                                                     </div>
-                                                    <input type="text" class="form-control disabled" value="0" disabled/>
-                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-10">
+                                                            <label class="form-label fw-bold fs-3">Quality</label>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <select id="quality" class="form-control">
+                                                                <option value="0">Select Quality</option>
+                                                                <?php
+
+                                                                $quality_rs = Database::search("SELECT * FROM `quality`");
+                                                                $quality_count = $quality_rs->num_rows;
+
+                                                                for ($x = 0; $x < $quality_count; $x++) {
+
+                                                                    $quality_data = $quality_rs->fetch_assoc();
+
+                                                                    ?>
+                                                                    <option
+                                                                        value="<?php echo ($quality_data["quality_id"]); ?>" <?php if ($quality_data["quality_id"] == $version_data["quality_id"]) { ?> selected <?php } ?>>
+                                                                        <?php echo ($quality_data["quality"]); ?>
+                                                                    </option>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="col-8">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-10">
+                                                            <label class="form-label fw-bold fs-3">Size</label>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <input class="form-control" type="text" id="size"
+                                                                value="<?php echo ($version_data["size"]); ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-10">
+                                                            <label class="form-label fw-bold fs-3">Unit</label>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <select id="unit" class="form-control">
+                                                                <option value="0">Select Unit</option>
+                                                                <?php
+
+                                                                $size_rs = Database::search("SELECT * FROM `size`");
+                                                                $size_count = $size_rs->num_rows;
+
+                                                                for ($x = 0; $x < $size_count; $x++) {
+
+                                                                    $size_data = $size_rs->fetch_assoc();
+
+                                                                    ?>
+                                                                    <option value="<?php echo ($size_data['size_id']); ?>" <?php if ($size_data["size_id"] == $version_data["size_id"]) { ?> selected <?php } ?>>
+                                                                        <?php echo ($size_data["size_type"]); ?>
+                                                                    </option>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Payment Methods</label>
+
+                                        <hr class="mb-0" />
+
+                                        <div class="col-12 p-3">
+                                            <div class="row justify-content-center align-items-center">
+                                                <div class="col-3 col-lg-2 border rounded border-primary">
+                                                    <img id="img0" src="resources/addproduct.svg"
+                                                        style="max-width: 200px; max-height: 200px; " />
+                                                </div>
+                                                <div class="col-3 col-lg-2 border rounded border-primary">
+                                                    <img id="img1" src="resources/addproduct.svg"
+                                                        style="max-width: 200px; max-height: 200px; " />
+                                                </div>
+                                                <div class="col-3 col-lg-2 border rounded border-primary">
+                                                    <img id="img2" src="resources/addproduct.svg"
+                                                        style="max-width: 200px; max-height: 200px; " />
+                                                </div>
                                             </div>
-                                            <div class="col-10">
-                                                <div class="row align-items-center justify-content-center text-primary">
-                                                    <div class="col-2"><i class="bi bi-paypal" style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-credit-card-2-front" style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-credit-card" style="font-size: 25px;"></i></div>
-                                                    <div class="col-2"><i class="bi bi-cash" style="font-size: 25px;"></i></div>
+                                            <div class="row justify-content-center my-1 align-items-center">
+                                                <div class="col-9 col-lg-6 d-grid">
+                                                    <input type="file" accept="image/*" class="d-none" id="imageUploader"
+                                                        multiple>
+                                                    <label class="btn btn-success" for="imageUploader"
+                                                        onclick="changeProductImages();">Upload Images</label>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <hr class="mb-0" />
+                                        <hr class="mb-3" />
 
-                                    <div class="col-12">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Delivery Methods</label>
-                                            </div>
-                                            <div class="col-11">
-                                                <span>Delivery Fees are managed by the system according to delivery methods automatically. Approve the delivery methods you can use. So, the buyer will be able to choose the best delivery method he could afford.</span>
-                                            </div>
-                                            <div class="col-10">
-                                                <div class="row justify-content-center">
-                                                    <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">Horizon CSR Delivery Service</label>
-                                                    <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">International Delivery Services</label>
-                                                    <input type="checkbox" class="form-check-input" />
-                                                    <label class="form-check-label">Private Service</label>
-                                                </div>
-                                            </div>
+                                        <div class="col-12 col-lg-6 d-grid">
+                                            <button class="btn btn-warning" onclick="saveProduct();">Save Product</button>
                                         </div>
+
                                     </div>
-
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 ">
-                                        <div class="row justify-content-center">
-                                            <div class="col-12">
-                                                <label class="form-label fw-bold fs-3">Description</label>
-                                            </div>
-                                            <div class="col-10">
-                                                <textarea class="form-control" cols="30" rows="10"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 ">
-                                        <div class="row justify-content-center align-items-center">
-                                            <div class="col-3 col-lg-2 border rounded border-primary">
-                                                <img src="resources/addproduct.svg" />
-                                            </div>
-                                            <div class="col-3 col-lg-2 border rounded border-primary">
-                                                <img src="resources/addproduct.svg" />
-                                            </div>
-                                            <div class="col-3 col-lg-2 border rounded border-primary">
-                                                <img src="resources/addproduct.svg" />
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center my-1 align-items-center">
-                                            <div class="col-9 col-lg-6 d-grid">
-                                                <input type="file" accept="image/*" class="d-none" id="imageUploader" multiple>
-                                                <label class="btn btn-success" for="imageUploader" onclick="changeProductImages();">Upload Images</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="mb-0" />
-
-                                    <div class="col-12 col-lg-6 d-grid">
-                                        <button class="btn btn-warning" onclick="productUpdate();">Update Product</button>
-                                    </div>
-
                                 </div>
+
                             </div>
-
                         </div>
+
                     </div>
-
                 </div>
-            </div>
-            <!-- content -->
+                <!-- content -->
 
-            <!-- footer -->
-            <?php include "footer.php"; ?>
+                <!-- footer -->
+                <?php
+            } else {
+                header("Location:home.php");
+            }
+
+            include "footer.php"; ?>
             <!-- footer -->
 
         </div>

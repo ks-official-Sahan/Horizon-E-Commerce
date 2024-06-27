@@ -991,6 +991,10 @@ function saveProduct() {
   var year = document.getElementById("year");
   var title = document.getElementById("title");
   var description = document.getElementById("description");
+  var url = document.getElementById("url");
+  var quality = document.getElementById("quality");
+  var size = document.getElementById("size");
+  var unit = document.getElementById("unit");
   // var colour_in = document.getElementById("clr_in")
 
   // alert (colour_in.value);
@@ -1007,6 +1011,10 @@ function saveProduct() {
   form.append("year", year.value);
   form.append("title", title.value);
   form.append("description", description.value);
+  form.append("url", url.value);
+  form.append("quality", quality.value);
+  form.append("size", size.value);
+  form.append("unit", unit.value);
 
   // form.append("file_count",file_count);
 
@@ -1021,10 +1029,10 @@ function saveProduct() {
   request.onreadystatechange = function () {
     if (request.readyState == 4) {
       var response = request.responseText;
-      alert (response);
+      // alert(response);
       if (response == "Product image saved successfully") {
         //window.location.reload();
-        //window.location = "myProducts.php";
+        window.location = "myProducts.php";
       } else {
         alert(response);
       }
@@ -1035,10 +1043,11 @@ function saveProduct() {
   request.send(form);
 }
 
-function updateProduct() {
+function updateProduct(id) {
   // alert("Update Product");
 
-  window.location = "updateProduct.php";
+  var location = "updateProduct.php?id=" + id;
+  window.location = location;
 }
 
 function productUpdate() {

@@ -121,7 +121,7 @@ $pageno;
                             <?php //include "sort.php"; ?>
 
                             <?php
-                            $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` WHERE `admin_email`='" . $email . "' ORDER BY `datetime_added` DESC");
+                            $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` ORDER BY `datetime_added` DESC");
                             if ($product_rs->num_rows > 0) {
                                 ?>
                                 <!-- Products -->
@@ -129,7 +129,7 @@ $pageno;
                                     <div class="row">
 
                                         <div class="offset-1 col-10 text-center">
-                                            <div class="row justify-content-center">
+                                            <div class="row justify-content-center gap-1">
 
                                                 <?php
                                                 for ($count = 0; $count < $product_rs->num_rows; $count++) {
@@ -148,8 +148,8 @@ $pageno;
 
                                                     ?>
                                                     <!-- Card -->
-                                                    <div class="card my-1 col-12 col-lg-6 border-success"
-                                                        style="max-width: 500px; max-height: 140px;">
+                                                    <div class="card my-1 col-12 col-lg-6 border-success p-2"
+                                                        style="max-width: 500px; max-height: 250px;">
                                                         <div class="row g-0">
                                                             <div class="col-md-4">
                                                                 <img src="<?php echo ($code); ?>"
@@ -176,14 +176,15 @@ $pageno;
                                                                     <div class="row">
                                                                         <div class="col-12">
                                                                             <div class="row g-1">
-                                                                                <div class="col-12 col-lg-6 d-grid">
+                                                                                <div class="col-12 d-grid">
+                                                                                    <!-- <div class="col-12 col-lg-6 d-grid"> -->
                                                                                     <button class="btn btn-success"
-                                                                                        onclick="updateProduct();">Update</button>
+                                                                                        onclick="updateProduct(<?php echo ($product_data['product_id']); ?>);">Update</button>
                                                                                 </div>
-                                                                                <div class="col-12 col-lg-6 d-grid">
+                                                                                <!-- <div class="col-12 col-lg-6 d-grid">
                                                                                     <button class="btn btn-danger"
-                                                                                        onclick="deleteProduct();">Delete</button>
-                                                                                </div>
+                                                                                        onclick="deleteProduct(<?php echo ($product_data['product_id']); ?>);">Delete</button>
+                                                                                </div> -->
                                                                             </div>
                                                                         </div>
                                                                     </div>

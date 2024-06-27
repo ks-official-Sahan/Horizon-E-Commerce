@@ -47,7 +47,7 @@
                                 <div
                                     class="row g-2 justify-content-center align-items-center text-center text-lg-start">
 
-                                    <div class="col-12 col-lg-6 ">
+                                    <div class="col-12 col-lg-6 mb-3">
                                         <div class="row justify-content-center">
                                             <div class="col-12">
                                                 <label class="form-label fw-bold fs-3">Category</label>
@@ -104,7 +104,7 @@
                                     </div>
                                     <hr class="mb-0" />
 
-                                    <div class="col-12 text-center">
+                                    <div class="col-12 text-center mb-3">
                                         <div class="row justify-content-center text-lg-start">
                                             <div class="col-12">
                                                 <label class="form-label fw-bold fs-3">Title</label>
@@ -117,14 +117,100 @@
 
                                     <hr class="mb-0" />
 
-                                    <div class="col-12 ">
+                                    <div class="col-12 mb-3">
                                         <div class="row justify-content-center">
                                             <div class="col-12">
                                                 <label class="form-label fw-bold fs-3">Description</label>
                                             </div>
                                             <div class="col-10">
                                                 <textarea id="description" class="form-control" cols="30"
-                                                    rows="10"></textarea>
+                                                    rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="mb-0" />
+
+                                    <div class="col-12 mb-3">
+                                        <div class="row justify-content-center">
+                                            <div class="col-8">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-10">
+                                                        <label class="form-label fw-bold fs-3">URL</label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <input class="form-control" type="text" id="url">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-10">
+                                                        <label class="form-label fw-bold fs-3">Quality</label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <select id="quality" class="form-control">
+                                                            <option value="0">Select Quality</option>
+                                                            <?php
+
+                                                            $quality_rs = Database::search("SELECT * FROM `quality`");
+                                                            $quality_count = $quality_rs->num_rows;
+
+                                                            for ($x = 0; $x < $quality_count; $x++) {
+
+                                                                $quality_data = $quality_rs->fetch_assoc();
+
+                                                                ?>
+                                                                <option
+                                                                    value="<?php echo ($quality_data['quality_id']); ?>">
+                                                                    <?php echo ($quality_data["quality"]); ?>
+                                                                </option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-8">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-10">
+                                                        <label class="form-label fw-bold fs-3">Size</label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <input class="form-control" type="text" id="size">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-10">
+                                                        <label class="form-label fw-bold fs-3">Unit</label>
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <select id="unit" class="form-control">
+                                                            <option value="0">Select Unit</option>
+                                                            <?php
+
+                                                            $size_rs = Database::search("SELECT * FROM `size`");
+                                                            $size_count = $size_rs->num_rows;
+
+                                                            for ($x = 0; $x < $size_count; $x++) {
+
+                                                                $size_data = $size_rs->fetch_assoc();
+
+                                                                ?>
+                                                                <option value="<?php echo ($size_data['size_id']); ?>">
+                                                                    <?php echo ($size_data["size_type"]); ?>
+                                                                </option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -134,13 +220,16 @@
                                     <div class="col-12 p-3">
                                         <div class="row justify-content-center align-items-center">
                                             <div class="col-3 col-lg-2 border rounded border-primary">
-                                                <img src="resources/addproduct.svg" />
+                                                <img id="img0" src="resources/addproduct.svg"
+                                                    style="max-width: 200px; max-height: 200px; " />
                                             </div>
                                             <div class="col-3 col-lg-2 border rounded border-primary">
-                                                <img src="resources/addproduct.svg" />
+                                                <img id="img1" src="resources/addproduct.svg"
+                                                    style="max-width: 200px; max-height: 200px; " />
                                             </div>
                                             <div class="col-3 col-lg-2 border rounded border-primary">
-                                                <img src="resources/addproduct.svg" />
+                                                <img id="img2" src="resources/addproduct.svg"
+                                                    style="max-width: 200px; max-height: 200px; " />
                                             </div>
                                         </div>
                                         <div class="row justify-content-center my-1 align-items-center">

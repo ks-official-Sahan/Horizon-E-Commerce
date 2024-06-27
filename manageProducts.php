@@ -8,7 +8,7 @@ if (isset($_SESSION["admin"])) {
 
     $admin = $_SESSION["admin"];
 
-?>
+    ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -62,7 +62,8 @@ if (isset($_SESSION["admin"])) {
                                             <a class="nav-link active fs-5" aria-current="page" href="#">Products</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-decoration-none link-dark fs-5" href="manageUsers.php">Users</a>
+                                            <a class="nav-link text-decoration-none link-dark fs-5"
+                                                href="manageUsers.php">Users</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -72,11 +73,11 @@ if (isset($_SESSION["admin"])) {
                                     <div class="row">
 
                                         <!-- Time Ranges -->
-                                        <?php include "timeRanges.php"; ?>
+                                        <?php // include "timeRanges.php"; ?>
                                         <!-- Time Ranges -->
 
                                         <!-- Records -->
-                                        <div class="col-12 mb-3 pt-2 px-4">
+                                        <!-- <div class="col-12 mb-3 pt-2 px-4">
                                             <div class="row justify-content-center">
 
                                                 <div class="col-sm-6 col-lg-4">
@@ -122,7 +123,7 @@ if (isset($_SESSION["admin"])) {
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- Records -->
 
                                     </div>
@@ -145,74 +146,74 @@ if (isset($_SESSION["admin"])) {
                                                     <span class="fw-bold fs-4 pt-4">New Products</span>
                                                 </div>
 
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
+                                                <?php
+                                                $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` ORDER BY `datetime_added` DESC LIMIT 5");
+                                                if ($product_rs->num_rows > 0) {
+                                                    for ($count = 0; $count < $product_rs->num_rows; $count++) {
+                                                        $product_data = $product_rs->fetch_assoc();
+
+                                                        $img_rs = Database::search("SELECT * FROM `images` WHERE `product_id` = '" . $product_data["product_id"] . "'");
+                                                        $img_count = $img_rs->num_rows;
+
+                                                        $code;
+                                                        if ($img_count > 0) {
+                                                            $img_data = $img_rs->fetch_assoc();
+                                                            $code = $img_data["path"];
+                                                        } else {
+                                                            $code = "resources/item_img/images.jpg";
+                                                        }
+
+                                                        ?>
+                                                        <!-- Card -->
+                                                        <div class="col-12 col-sm-6 col-lg-3">
+                                                            <div class="card">
+                                                                <div class="row justify-content-center">
+                                                                    <img src="<?php echo ($code); ?>" class="card-img-top px-2 py-2"
+                                                                        style="height: 200px; width: 200px;" />
+                                                                </div>
+                                                                <div class="card-body text-center">
+                                                                    <span
+                                                                        class="card-title fw-bold fs-4"><?php echo ($product_data["title"]); ?></span><br />
+                                                                    <span class="card-text text-success fw-bold fs-6">Year:
+                                                                        <?php echo ($product_data["year"]); ?></span><br />
+                                                                    <span
+                                                                        class="card-text text-warning fw-bold fs-6">Category<?php echo ($product_data["category"]); ?></span><br />
+                                                                    <div class="d-grid">
+                                                                        <button class="btn btn-danger"
+                                                                            onclick="manageProduct(<?php echo ($product_data['product_id']); ?>);">Manage</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
+                                                        <!-- Card -->
+
+                                                        <?php
+                                                    }
+                                                } else {
+                                                    ?>
+
+                                                    <!-- Card -->
+                                                    <div class="col-12 col-sm-6 col-lg-3">
+                                                        <div class="card">
+                                                            <div class="row justify-content-center">
+                                                                <img src="resources/item_img/image2.jpg"
+                                                                    class="card-img-top px-2 py-2"
+                                                                    style="height: 200px; width: 200px;" />
+                                                            </div>
+                                                            <div class="card-body text-center">
+                                                                <span class="card-text text-warning fw-bold fs-6">No products
+                                                                    found</span><br />
+                                                                <div class="d-grid">
+                                                                    <button class="btn btn-danger" onclick="addProduct();">Add
+                                                                        New Products</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- Card -->
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
-                                                        </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Card -->
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
-                                                        </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Card -->
-                                                <!-- Card -->
-                                                <div class="col-12 col-sm-6 col-lg-3">
-                                                    <div class="card">
-                                                        <div class="row justify-content-center">
-                                                            <img src="resources/item_img/iphone14.jpg" class="card-img-top px-2 py-2" style="height: 200px; width: 200px;" />
-                                                        </div>
-                                                        <div class="card-body text-center">
-                                                            <span class="card-title fw-bold fs-4">Apple iPhone 14</span><br />
-                                                            <span class="card-text text-success fw-bold fs-6">699 USD</span><br />
-                                                            <span class="card-text text-warning fw-bold fs-6">10 Items Available</span><br />
-                                                            <div class="d-grid px-4">
-                                                                <button class="btn btn-danger" onclick="manageProduct(0);">Manage</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- Card -->
+                                                    <!-- Card -->
+                                                    <?php
+                                                }
+                                                ?>
 
                                             </div>
                                         </div>
@@ -226,24 +227,28 @@ if (isset($_SESSION["admin"])) {
 
                                                     <span class="fw-bold fs-4 mb-3">All Products</span>
 
-                                                    <div class="row mb-3">
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Total Products : 900,000</span>
+                                                    <?php
+                                                    $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` ORDER BY `datetime_added` DESC");
+                                                    if ($product_rs->num_rows > 0) {
+                                                        ?>
+                                                        <div class="row mb-3">
+                                                            <div class="col-12 col-lg-6">
+                                                                <span class="fw-bold">Number of Total Products :
+                                                                    <?php echo ($product_rs->num_rows); ?></span>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <span class="fw-bold">Number of Active Products :
+                                                                    <?php echo ($product_rs->num_rows); ?></span>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Active Products : 898,520</span>
-                                                        </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Total Items : 3,000,000</span>
-                                                        </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Active Items : 2,919,980</span>
-                                                        </div>
-                                                    </div>
+                                                        <?php
+                                                    }
+                                                    ?>
 
                                                     <!-- Table -->
                                                     <div class="table-responsive">
-                                                        <table class="table align-middle table-dark table-hover table-responsive-sm table-striped border-bottom border-success rounded">
+                                                        <table
+                                                            class="table align-middle table-dark table-hover table-responsive-sm table-striped border-bottom border-success rounded">
                                                             <thead>
                                                                 <tr class="border-bottom border-1 border-primary">
                                                                     <th>#</th>
@@ -256,81 +261,67 @@ if (isset($_SESSION["admin"])) {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218500</td>
-                                                                    <td>Phone & Accessories</td>
-                                                                    <td>Apple iPhone 14</td>
-                                                                    <td>horizon.csr.official1@gmail.com</td>
-                                                                    <td>29-10-2022 00:00:31</td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218499</td>
-                                                                    <td>Phone & Accessories</td>
-                                                                    <td>Apple iPhone 14</td>
-                                                                    <td>horizon.csr.official1@gmail.com</td>
-                                                                    <td>29-10-2022 00:00:31</td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218497</td>
-                                                                    <td>Phone & Accessories</td>
-                                                                    <td>Apple iPhone 14</td>
-                                                                    <td>horizon.csr.official1@gmail.com</td>
-                                                                    <td>29-10-2022 00:00:31</td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218496</td>
-                                                                    <td>Phone & Accessories</td>
-                                                                    <td>Apple iPhone 14</td>
-                                                                    <td>horizon.csr.official1@gmail.com</td>
-                                                                    <td>29-10-2022 00:00:31</td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
+
+                                                                <?php
+                                                                $product_rs = Database::search("SELECT * FROM `product` INNER JOIN `year` ON `year`.`year_id`=`product`.`year_id` INNER JOIN `category` ON `product`.`category_id`=`category`.`category_id` ORDER BY `datetime_added` DESC LIMIT 5");
+                                                                if ($product_rs->num_rows > 0) {
+                                                                    for ($count = 0; $count < $product_rs->num_rows; $count++) {
+                                                                        $product_data = $product_rs->fetch_assoc();
+
+                                                                        ?>
+                                                                        <tr class="border-bottom border-secondary">
+                                                                            <td><?php echo ($product_data["product_id"]); ?></td>
+                                                                            <td><?php echo ($product_data["category"]); ?></td>
+                                                                            <td><?php echo ($product_data["title"]); ?></td>
+                                                                            <td><?php echo ($product_data["admin_email"]); ?></td>
+                                                                            <td><?php echo ($product_data["datetime_added"]); ?>
+                                                                            </td>
+                                                                            <td><button class="btn btn-danger mx-3">Manage</button>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="form-check form-switch">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        role="switch" id="status" checked />
+                                                                                    <label class="form-check-label"
+                                                                                        for="switch">Active</label>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <?php
+                                                                    }
+                                                                } else {
+                                                                    ?>
+
+
+                                                                    <?php
+                                                                }
+                                                                ?>
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>
                                                                     <td colspan="7" class="text-center text-primary">
                                                                         <!-- Pagination -->
-                                                                        <div class="offset-2 offset-lg-4 col-8 col-lg-4 my-2">
+                                                                        <div
+                                                                            class="offset-2 offset-lg-4 col-8 col-lg-4 my-2">
                                                                             <nav aria-label="Page navigation example">
-                                                                                <ul class="pagination justify-content-center">
+                                                                                <ul
+                                                                                    class="pagination justify-content-center">
                                                                                     <li class="page-item">
-                                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                                            <span aria-hidden="true">&laquo;</span>
+                                                                                        <a class="page-link" href="#"
+                                                                                            aria-label="Previous">
+                                                                                            <span
+                                                                                                aria-hidden="true">&laquo;</span>
                                                                                         </a>
                                                                                     </li>
-                                                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                                    <li class="page-item"><a
+                                                                                            class="page-link" href="#">1</a>
+                                                                                    </li>
                                                                                     <li class="page-item">
-                                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                                            <span aria-hidden="true">&raquo;</span>
+                                                                                        <a class="page-link" href="#"
+                                                                                            aria-label="Next">
+                                                                                            <span
+                                                                                                aria-hidden="true">&raquo;</span>
                                                                                         </a>
                                                                                     </li>
                                                                                 </ul>
@@ -351,7 +342,8 @@ if (isset($_SESSION["admin"])) {
                                         <!-- Products -->
 
                                         <div class="col-12 col-lg-8 text-center pt-4 mb-3 d-grid">
-                                            <button class="btn btn-outline-primary fw-bold fs-5" onclick="listAllProducts();">List All</button>
+                                            <button class="btn btn-outline-primary fw-bold fs-5"
+                                                onclick="listAllProducts();">List All</button>
                                         </div>
 
                                     </div>
@@ -383,7 +375,7 @@ if (isset($_SESSION["admin"])) {
 
     </html>
 
-<?php
+    <?php
 
 } else if (isset($_SESSION["user"])) {
 

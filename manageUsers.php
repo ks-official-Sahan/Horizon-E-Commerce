@@ -8,7 +8,7 @@ if (isset($_SESSION["admin"])) {
 
     $admin = $_SESSION["admin"];
 
-?>
+    ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -59,7 +59,8 @@ if (isset($_SESSION["admin"])) {
                                 <div class="col-12 pt-3">
                                     <ul class="nav nav-tabs justify-content-center justify-content-lg-start">
                                         <li class="nav-item">
-                                            <a class="nav-link text-decoration-none link-dark fs-5" href="manageProducts.php">Products</a>
+                                            <a class="nav-link text-decoration-none link-dark fs-5"
+                                                href="manageProducts.php">Products</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link active fs-5" aria-current="page" href="#">Users</a>
@@ -72,11 +73,11 @@ if (isset($_SESSION["admin"])) {
                                     <div class="row">
 
                                         <!-- Time Ranges -->
-                                        <?php include "timeRanges.php"; ?>
+                                        <?php // include "timeRanges.php"; ?>
                                         <!-- Time Ranges -->
 
                                         <!-- Records -->
-                                        <div class="col-12 mb-3 pt-2 px-4">
+                                        <!-- <div class="col-12 mb-3 pt-2 px-4">
                                             <div class="row justify-content-center">
 
                                                 <div class="col-sm-6 col-lg-4">
@@ -122,7 +123,7 @@ if (isset($_SESSION["admin"])) {
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- Records -->
 
                                     </div>
@@ -142,7 +143,7 @@ if (isset($_SESSION["admin"])) {
 
                                             <span class="fw-bold fs-4 mb-2">New Users</span>
 
-                                            <div class="row mb-3">
+                                            <!-- <div class="row mb-3">
                                                 <div class="col-12 col-lg-6">
                                                     <span class="fw-bold">Number of Total New Users : 18,500</span>
                                                 </div>
@@ -155,69 +156,44 @@ if (isset($_SESSION["admin"])) {
                                                 <div class="col-12 col-lg-6">
                                                     <span class="fw-bold">Number of Active New Sellers : 5,280</span>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="table-responsive">
-                                                <table class="table table-hover table-striped-columns table-primary border border-success rounded">
+                                                <table
+                                                    class="table table-hover table-striped-columns table-primary border border-success rounded">
                                                     <thead>
                                                         <tr class="border border-1 border-primary">
                                                             <th>#</th>
                                                             <th>Email</th>
                                                             <th>First Name</th>
                                                             <th>Time</th>
-                                                            <th>Type</th>
                                                             <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18500</td>
-                                                            <td>horizon.csr.official6@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:10</td>
-                                                            <td>Seller</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18499</td>
-                                                            <td>horizon.csr.official5@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:09</td>
-                                                            <td>Seller</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18498</td>
-                                                            <td>horizon.csr.official4@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:08</td>
-                                                            <td>Seller</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18497</td>
-                                                            <td>horizon.csr.official3@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:07</td>
-                                                            <td>Seller</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18496</td>
-                                                            <td>horizon.csr.official2@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:06</td>
-                                                            <td>Seller</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
-                                                        <tr class="border-bottom border-secondary">
-                                                            <td>18495</td>
-                                                            <td>horizon.csr.official1@gmail.com</td>
-                                                            <td>Horizon</td>
-                                                            <td>28-10-2022 00:30:05</td>
-                                                            <td>Seller</td>
-                                                            <td><button class="btn btn-primary mx-3">Manage</button></td>
-                                                        </tr>
+                                                        <?php
+                                                        $user_rs = Database::search("SELECT * FROM `user` ORDER BY `joined_date` DESC LIMIT 5");
+                                                        if ($user_rs->num_rows > 0) {
+                                                            for ($count = 0; $count < $user_rs->num_rows; $count++) {
+                                                                $user_data = $user_rs->fetch_assoc();
+                                                                ?>
+                                                                <tr class="border-bottom border-secondary">
+                                                                    <td><?php echo ($count); ?></td>
+                                                                    <td><?php echo ($user_data["email"]); ?></td>
+                                                                    <td><?php echo ($user_data["fname"]); ?></td>
+                                                                    <td><?php echo ($user_data["joined_date"]); ?></td>
+                                                                    <td><button class="btn btn-primary mx-3">Manage</button></td>
+                                                                </tr>
+                                                                <?php
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <tr class="border-bottom border-secondary">
+                                                                <td colspan="5">0 Users Found</td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
@@ -227,15 +203,16 @@ if (isset($_SESSION["admin"])) {
                                                                     <nav aria-label="Page navigation example">
                                                                         <ul class="pagination justify-content-center">
                                                                             <li class="page-item">
-                                                                                <a class="page-link" href="#" aria-label="Previous">
+                                                                                <a class="page-link" href="#"
+                                                                                    aria-label="Previous">
                                                                                     <span aria-hidden="true">&laquo;</span>
                                                                                 </a>
                                                                             </li>
-                                                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                            <li class="page-item"><a class="page-link"
+                                                                                    href="#">1</a></li>
                                                                             <li class="page-item">
-                                                                                <a class="page-link" href="#" aria-label="Next">
+                                                                                <a class="page-link" href="#"
+                                                                                    aria-label="Next">
                                                                                     <span aria-hidden="true">&raquo;</span>
                                                                                 </a>
                                                                             </li>
@@ -258,134 +235,101 @@ if (isset($_SESSION["admin"])) {
 
                                                 <div class="col-12 text-center px-lg-5 ps-md-4 mb-3">
 
-                                                    <span class="fw-bold fs-4 mb-3">All Users</span>
+                                                    <?php
+                                                    $user_rs = Database::search("SELECT * FROM `user` ORDER BY `joined_date` DESC");
+                                                    if ($user_rs->num_rows > 0) {
+                                                        ?>
+                                                        <span class="fw-bold fs-4 mb-3">All Users</span>
 
-                                                    <div class="row mb-3">
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Total Users : 300,000</span>
+                                                        <div class="row mb-3">
+                                                            <div class="col-12 col-lg-6">
+                                                                <span class="fw-bold">Number of Total Users :
+                                                                    <?php echo ($user_rs->num_rows) ?></span>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <span class="fw-bold">Number of Active Users :
+                                                                    <?php echo ($user_rs->num_rows) ?></span>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Active Users : 298,520</span>
-                                                        </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Total Sellers : 120,000</span>
-                                                        </div>
-                                                        <div class="col-12 col-lg-6">
-                                                            <span class="fw-bold">Number of Active Sellers : 119,980</span>
-                                                        </div>
-                                                    </div>
+                                                        <?php
+                                                    }
+                                                    ?>
 
                                                     <!-- Table -->
                                                     <div class="table-responsive">
-                                                        <table class="table align-middle table-dark table-hover table-responsive-sm table-striped border-bottom border-success rounded">
+                                                        <table
+                                                            class="table align-middle table-dark table-hover table-responsive-sm table-striped border-bottom border-success rounded">
                                                             <thead>
                                                                 <tr class="border-bottom border-1 border-primary">
                                                                     <th>#</th>
                                                                     <th>Email</th>
                                                                     <th>First Name</th>
-                                                                    <th>Type</th>
+                                                                    <th>Joined Date</th>
                                                                     <th>Status</th>
                                                                     <th>Manage</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218500</td>
-                                                                    <td>horizon.csr.official6@gmail.com</td>
-                                                                    <td>Horizon</td>
-                                                                    <td>Seller</td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218499</td>
-                                                                    <td>horizon.csr.official5@gmail.com</td>
-                                                                    <td>Horizon</td>
-                                                                    <td>Seller</td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218498</td>
-                                                                    <td>horizon.csr.official4@gmail.com</td>
-                                                                    <td>Horizon</td>
-                                                                    <td>Seller</td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218497</td>
-                                                                    <td>horizon.csr.official3@gmail.com</td>
-                                                                    <td>Horizon</td>
-                                                                    <td>Seller</td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218496</td>
-                                                                    <td>horizon.csr.official2@gmail.com</td>
-                                                                    <td>Horizon</td>
-                                                                    <td>Seller</td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                </tr>
-                                                                <tr class="border-bottom border-secondary">
-                                                                    <td>218495</td>
-                                                                    <td>horizon.csr.official1@gmail.com</td>
-                                                                    <td>Horizon</td>
-                                                                    <td>Seller</td>
-                                                                    <td>
-                                                                        <div class="form-check form-switch">
-                                                                            <input class="form-check-input" type="checkbox" role="switch" id="status" checked />
-                                                                            <label class="form-check-label" for="switch">Deactive</label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td><button class="btn btn-danger mx-3">Manage</button></td>
-                                                                </tr>
+                                                                <?php
+                                                                $user_rs = Database::search("SELECT * FROM `user` ORDER BY `joined_date` DESC");
+                                                                if ($user_rs->num_rows > 0) {
+                                                                    for ($count = 0; $count < $user_rs->num_rows; $count++) {
+                                                                        $user_data = $user_rs->fetch_assoc();
+                                                                        ?>
+                                                                        <tr class="border-bottom border-secondary">
+                                                                            <td><?php echo ($count); ?></td>
+                                                                            <td><?php echo ($user_data["email"]); ?></td>
+                                                                            <td><?php echo ($user_data["fname"]); ?></td>
+                                                                            <td><?php echo ($user_data["joined_date"]); ?></td>
+                                                                            <td>
+                                                                                <div class="form-check form-switch">
+                                                                                    <input class="form-check-input" type="checkbox"
+                                                                                        role="switch" id="status" checked />
+                                                                                    <label class="form-check-label"
+                                                                                        for="switch">Deactive</label>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td><button class="btn btn-primary mx-3">Manage</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php
+                                                                    }
+                                                                } else {
+                                                                    ?>
+                                                                    <tr class="border-bottom border-secondary">
+                                                                        <td colspan="6">0 Users Found</td>
+                                                                    </tr>
+                                                                    <?php
+                                                                }
+                                                                ?>
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>
                                                                     <td colspan="6" class="text-center text-primary">
                                                                         <!-- Pagination -->
-                                                                        <div class="offset-2 offset-lg-4 col-8 col-lg-4 my-2">
+                                                                        <div
+                                                                            class="offset-2 offset-lg-4 col-8 col-lg-4 my-2">
                                                                             <nav aria-label="Page navigation example">
-                                                                                <ul class="pagination justify-content-center">
+                                                                                <ul
+                                                                                    class="pagination justify-content-center">
                                                                                     <li class="page-item">
-                                                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                                                            <span aria-hidden="true">&laquo;</span>
+                                                                                        <a class="page-link" href="#"
+                                                                                            aria-label="Previous">
+                                                                                            <span
+                                                                                                aria-hidden="true">&laquo;</span>
                                                                                         </a>
                                                                                     </li>
-                                                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                                    <li class="page-item"><a
+                                                                                            class="page-link" href="#">1</a>
+                                                                                    </li>
+                                                                                    <li class="page-item"><a
+                                                                                            class="page-link" href="2">2</a>
+                                                                                    </li>
                                                                                     <li class="page-item">
-                                                                                        <a class="page-link" href="#" aria-label="Next">
-                                                                                            <span aria-hidden="true">&raquo;</span>
+                                                                                        <a class="page-link" href="#"
+                                                                                            aria-label="Next">
+                                                                                            <span
+                                                                                                aria-hidden="true">&raquo;</span>
                                                                                         </a>
                                                                                     </li>
                                                                                 </ul>
@@ -406,7 +350,8 @@ if (isset($_SESSION["admin"])) {
                                         <!-- Users -->
 
                                         <div class="col-12 col-lg-8 d-grid mb-3">
-                                            <button class="btn btn-outline-primary fw-bold fs-5" id="listButton" onclick="listAllUsers();">List All Users</button>
+                                            <button class="btn btn-outline-primary fw-bold fs-5" id="listButton"
+                                                onclick="listAllUsers();">List All Users</button>
                                         </div>
 
                                     </div>
@@ -438,7 +383,7 @@ if (isset($_SESSION["admin"])) {
 
     </html>
 
-<?php
+    <?php
 
 } else if (isset($_SESSION["user"])) {
 

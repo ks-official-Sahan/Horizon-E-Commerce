@@ -1240,7 +1240,7 @@ function payComplete(mail) {
       if (response == "1") {
         bm.hide();
         alert("Payment has been completed");
-        window.location = "home.php";
+        window.location = "invoice.php";
       } else {
         alert(response);
       }
@@ -1511,7 +1511,9 @@ function clearSort1() {
 //
 
 function print() {
-  alert("Print");
+  // alert("Print");
+  window.print();
+  var page = document.getElementById("page");
 }
 
 function exportPDF() {

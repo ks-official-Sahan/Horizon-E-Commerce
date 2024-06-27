@@ -13,29 +13,30 @@
     <link rel="stylesheet" href="bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
 
-    <link rel="shortcut icon" href="resources/logo/HS logo black png.png"  type="image/x-icon" />
+    <link rel="shortcut icon" href="resources/logo/HS logo black png.png" type="image/x-icon" />
 
 
 </head>
 
 <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid home">
         <div class="row">
 
             <!-- Header -->
-            <?php include "header.php" ?>
-            <!-- Header -->
+            <?php
 
-            <!-- Navbar -->
-            <?php include "navbar.php" ?>
-            <!-- Navbar -->
+            session_start();
+            require "connection.php";
+
+            include "header.php" ?>
+            <!-- Header -->
 
             <!-- Content -->
             <div class="col-12">
                 <div class="row px-2">
 
-                    <div class="col-12 mt-3 border rounded-4 mb-3 bg-body">
+                    <div class="col-12 mt-3 border rounded-4 mb-3 bg-body bg-opacity-50">
                         <div class="row px-3">
 
                             <div class="col-12 text-center mb-2 border-bottom rounded rounded-3">
@@ -43,8 +44,10 @@
                             </div>
 
                             <div class="col-12 btn-toolbar justify-content-end mt-3">
-                                <button class="btn btn-dark me-2" onclick="print();"><i class="bi bi-printer-fill"></i> Print</button>
-                                <button class="btn btn-danger me-2" onclick="exportPDF();"><i class="bi bi-filetype-pdf"></i> Export as PDF</button>
+                                <button class="btn btn-dark me-2" onclick="print();"><i class="bi bi-printer-fill"></i>
+                                    Print</button>
+                                <button class="btn btn-danger me-2" onclick="exportPDF();"><i
+                                        class="bi bi-filetype-pdf"></i> Export as PDF</button>
                             </div>
 
                             <div class="col-12">
@@ -84,9 +87,9 @@
                                                 <span>horizon.csr.official@gmail.com</span>
                                             </div>
                                             <div class="col-6 text-end">
-                                                <h1 class="text-primary">INVOICE 01</h1>
+                                                <h1 class="text-primary">INVOICE 03</h1>
                                                 <span>Date & Date of Invoice : </span><br />
-                                                <span>28-10-2022 00:00:00</span>
+                                                <span>27-06-2024 00:00:00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +103,7 @@
                                                         <th>#</th>
                                                         <th>Order ID & Product</th>
                                                         <th class="text-end">Unit Price</th>
-                                                        <th class="text-end">Quantity</th>
+                                                        <th class="text-end">Date</th>
                                                         <th class="text-end">Price</th>
                                                     </tr>
                                                 </thead>
@@ -108,29 +111,31 @@
                                                     <tr style="height: 72px;">
                                                         <td class="bg-primary text-white fs-3">01</td>
                                                         <td>
-                                                            <span class="fw-bold text-primary text-decoration-underline p-2">0000001</span><br />
-                                                            <span class="fw-bold text-primary fs-4 p-2">Apple iPhone 14</span>
+                                                            <span
+                                                                class="fw-bold text-primary text-decoration-underline p-2">1</span><br />
+                                                            <span class="fw-bold text-primary fs-4 p-2">Month
+                                                                Subscription</span>
                                                         </td>
-                                                        <td class="fw-bold fs-6 text-end pt-4 bg-secondary text-white">Rs. 420000 .00</td>
-                                                        <td class="fw-bold fs-6 text-end pt-4 bg-secondary text-white">01</td>
-                                                        <td class="fw-bold fs-6 text-end pt-4 bg-secondary text-white">Rs. 420000 .00</td>
+                                                        <td class="fw-bold fs-6 text-end pt-4 bg-secondary text-white">
+                                                            Rs. 2000 .00</td>
+                                                        <td class="fw-bold fs-6 text-end pt-4 bg-secondary text-white">
+                                                            2024/06/27</td>
+                                                        <td class="fw-bold fs-6 text-end pt-4 bg-secondary text-white">
+                                                            Rs. 2000 .00</td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
                                                     <tr>
                                                         <td colspan="3" class="border-0"></td>
                                                         <td class="fs-5 text-end fw-bold">SUBTOTAL</td>
-                                                        <td class="text-end">Rs. 420000 .00</td>
+                                                        <td class="text-end">Rs. 2000 .00</td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3" class="border-0"></td>
-                                                        <td class="fs-5 text-end fw-bold border-primary">Delivery Fee</td>
-                                                        <td class="text-end border-primary">Rs. 350 .00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3" class="border-0"></td>
-                                                        <td class="fs-5 text-end fw-bold border-primary text-primary">GRAND TOTAL</td>
-                                                        <td class="text-end border-primary text-primary">Rs. 420350 .00</td>
+                                                        <td class="fs-5 text-end fw-bold border-primary text-primary">
+                                                            GRAND TOTAL</td>
+                                                        <td class="text-end border-primary text-primary">Rs. 2000 .00
+                                                        </td>
                                                     </tr>
                                                 </tfoot>
 
@@ -140,16 +145,8 @@
                                     </div>
 
                                     <div class="col-6 text-center" style="margin-top: -100px;">
-                                        <span class="fs-1 text-success fw-bold">Thank You !</span>
-                                    </div>
-
-                                    <div class="col-12 border-5 border-start border-primary my-3 rounded" style="background-color: #E7F2FF;">
-                                        <div class="row">
-                                            <div class="col-12 my-3">
-                                                <label class="form-label fw-bold fs-5">NOTICE</label><br />
-                                                <label class="form-label fs-6">Purchased items can returned before 14 days of delivery</label><br />
-                                            </div>
-                                        </div>
+                                        <span class="fs-1 text-success fw-bold">Thank You! Enjoy your
+                                            Subscription!</span>
                                     </div>
 
                                     <div class="col-12">
@@ -158,7 +155,8 @@
 
                                     <div class="col-12 text-center mb-3">
                                         <label class="form-label fs-5 text-black-50 fw-bold">
-                                            Invoice was created on a computer and is valid without the Signature and Seal.
+                                            Invoice was created on a computer and is valid without the Signature and
+                                            Seal.
                                         </label>
                                     </div>
 
